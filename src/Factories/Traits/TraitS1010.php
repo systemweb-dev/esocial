@@ -375,8 +375,8 @@ trait TraitS1010
             $this->dom->addChild(
                 $dadosRubrica,
                 "codIncCPRP",
-                $this->std->dadosrubrica->codinccprp,
-                true
+                $this->std->dadosrubrica->codinccprp ?? null,
+                false
             );
             $this->dom->addChild(
                 $dadosRubrica,
