@@ -1,8 +1,8 @@
 {
-    "name": "nfephp-org/sped-esocial",
+    "name": "systemweb-dev/esocial",
     "type": "library",
     "description": "e-Social library",
-    "homepage": "https://github.com/nfephp-org/sped-esocial",
+    "homepage": "https://github.com/systemweb-dev/esocial",
     "keywords": ["Sped", "eSocial", "Folha", "Empregados"],
     "license": ["LGPL-3.0-or-later", "GPL-3.0-or-later", "MIT"],
     "authors": [
