@@ -184,6 +184,13 @@ trait TraitS2501
             $this->std->perapurpgto,
             true
         );
+        // ideSeqProc existe só a partir do S-1.3 (vários S-2501 do mesmo processo e período)
+        $this->dom->addChild(
+            $ideproc,
+            "ideSeqProc",
+            $this->std->ideseqproc ?? null,
+            false
+        );
         $this->dom->addChild(
             $ideproc,
             "obs",
