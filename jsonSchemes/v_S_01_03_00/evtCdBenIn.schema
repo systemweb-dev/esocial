@@ -1,0 +1,208 @@
+{
+    "title": "evtCdBenIn",
+    "type": "object",
+    "properties": {
+        "sequencial": {
+            "required": false,
+            "type": ["integer","null"],
+            "minimum": 1,
+            "maximum": 99999
+        },
+        "indretif": {
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2
+        },
+        "nrrecibo": {
+            "required": false,
+            "type": ["string","null"],
+            "$ref": "#/definitions/recibo"
+        },
+        "cpfbenef": {
+            "required": true,
+            "type": "string",
+            "pattern": "^[0-9]{11}$"
+        },
+        "matricula": {
+            "required": false,
+            "type": ["string","null"],
+            "pattern": "^.{1,30}$"
+        },
+        "cnpjorigem": {
+            "required": false,
+            "type": ["string","null"],
+            "pattern": "^[A-Z0-9]{12}[0-9]{2}$"
+        },
+        "cadini": {
+            "required": true,
+            "type": "string",
+            "pattern": "^(S|N)$"
+        },
+        "indsitbenef": {
+            "required": false,
+            "type": ["integer","null"],
+            "minimum": 1,
+            "maximum": 3
+        },
+        "nrbeneficio": {
+            "required": true,
+            "type": "string",
+            "pattern": "^.{1,20}$"
+        },
+        "dtinibeneficio": {
+            "required": true,
+            "type": "string",
+            "$ref": "#/definitions/data"
+        },
+        "dtpublic": {
+            "required": false,
+            "type": ["string","null"],
+            "$ref": "#/definitions/data"
+        },
+        "tpbeneficio": {
+            "required": true,
+            "type": "string",
+            "pattern": "^[0-1]{1}[0-9]{3}$"
+        },
+        "tpplanrp": {
+            "required": true,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+        },
+        "dsc": {
+            "required": false,
+            "type": ["string","null"],
+            "pattern": "^.{1,255}$"
+        },
+        "inddecjud": {
+            "required": false,
+            "type": ["string","null"],
+            "pattern": "^(S|N)$"
+        },
+        "infopenmorte": {
+            "required": false,
+            "type": ["object","null"],
+            "properties": {
+                "tppenmorte": {
+                    "required": true,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 2
+                },
+                "instpenmorte": {
+                    "required": false,
+                    "type": ["object","null"],
+                    "properties": {
+                        "cpfinst": {
+                            "required": true,
+                            "type": "string",
+                            "pattern": "^[0-9]{11}$"
+                        },
+                        "dtinst": {
+                            "required": true,
+                            "type": "string",
+                            "$ref": "#/definitions/data"
+                        },
+                        "tpdepinst": {
+                            "required": false,
+                            "type": ["string","null"],
+                            "maxLength": 2
+                        },
+                        "descrdepinst": {
+                            "required": false,
+                            "type": ["string","null"],
+                            "maxLength": 100
+                        }
+                    }
+                }
+            }
+        },
+        "sucessaobenef": {
+            "required": false,
+            "type": ["object","null"],
+            "properties": {
+                "cnpjorgaoant": {
+                    "required": true,
+                    "type": "string",
+                    "pattern": "^[A-Z0-9]{12}[0-9]{2}$"
+                },
+                "nrbeneficioant": {
+                    "required": true,
+                    "type": "string",
+                    "pattern": "^.{1,20}$"
+                },
+                "dttransf": {
+                    "required": true,
+                    "type": "string",
+                    "$ref": "#/definitions/data"
+                },
+                "observacao": {
+                    "required": false,
+                    "type": ["string","null"],
+                    "pattern": "^.{1,255}$"
+                }
+            }
+        },
+        "mudancacpf": {
+            "required": false,
+            "type": ["object","null"],
+            "properties": {
+                "cpfant": {
+                    "required": true,
+                    "type": "string",
+                    "pattern": "^[0-9]{11}$"
+                },
+                "nrbeneficioant": {
+                    "required": true,
+                    "type": "string",
+                    "pattern": "^.{1,20}$"
+                },
+                "dtaltcpf": {
+                    "required": true,
+                    "type": "string",
+                    "$ref": "#/definitions/data"
+                },
+                "observacao": {
+                    "required": false,
+                    "type": ["string","null"],
+                    "pattern": "^.{1,255}$"
+                }
+            }
+        },
+        "infobentermino": {
+            "required": false,
+            "type": ["object","null"],
+            "properties": {
+                "dttermbeneficio": {
+                    "required": true,
+                    "type": "string",
+                    "$ref": "#/definitions/data"
+                },
+                "mtvtermino": {
+                    "required": true,
+                    "type": "string",
+                    "pattern": "^0[1-8]{1}|11$"
+                }
+            }
+        },
+        "infohomolog": {
+            "required": false,
+            "type": ["object","null"],
+            "properties": {
+                "sithomolog": {
+                    "required": true,
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 2
+                },
+                "dthomolog": {
+                    "required": false,
+                    "type": ["string","null"],
+                    "$ref": "#/definitions/data"
+                }
+            }
+        }
+    }
+}
