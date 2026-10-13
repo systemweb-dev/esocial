@@ -52,7 +52,6 @@ class SoapCurl extends SoapBase implements SoapInterface
         $this->requestHead = implode("\n", $parameters);
         $this->requestBody = $envelope;
         try {
-            $this->saveTemporarilyKeyFiles();
             $oCurl = curl_init();
             $this->setCurlProxy($oCurl);
             curl_setopt($oCurl, CURLOPT_URL, $url);
@@ -70,11 +69,7 @@ class SoapCurl extends SoapBase implements SoapInterface
                 }
             }
             curl_setopt($oCurl, CURLOPT_SSLVERSION, $this->soapprotocol);
-            curl_setopt($oCurl, CURLOPT_SSLCERT, $this->tempdir.$this->certfile);
-            curl_setopt($oCurl, CURLOPT_SSLKEY, $this->tempdir.$this->prifile);
-            if (! empty($this->temppass)) {
-                curl_setopt($oCurl, CURLOPT_KEYPASSWD, $this->temppass);
-            }
+            $this->setClientCertificate($oCurl);
             curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true);
             if (! empty($envelope)) {
                 curl_setopt($oCurl, CURLOPT_POST, true);
@@ -114,6 +109,22 @@ class SoapCurl extends SoapBase implements SoapInterface
             throw SoapException::soapFault(" [$url]" . $this->responseHead, $httpcode);
         }
         return $this->responseBody;
+    }
+    /**
+     * Passa o certificado e a chave privada ao cURL direto da memória.
+     * Não grava arquivo temporário: a chave privada nunca toca o disco.
+     * Requer PHP 8.1+ e cURL 7.71+ (CURLOPT_SSLCERT_BLOB / CURLOPT_SSLKEY_BLOB).
+     * @param resource $oCurl
+     */
+    private function setClientCertificate(&$oCurl)
+    {
+        if (! is_object($this->certificate)) {
+            throw new \RuntimeException('Certificate not found.');
+        }
+        curl_setopt($oCurl, CURLOPT_SSLCERTTYPE, 'PEM');
+        curl_setopt($oCurl, CURLOPT_SSLCERT_BLOB, "{$this->certificate}");
+        curl_setopt($oCurl, CURLOPT_SSLKEYTYPE, 'PEM');
+        curl_setopt($oCurl, CURLOPT_SSLKEY_BLOB, "{$this->certificate->privateKey}");
     }
     /**
      * Set proxy into cURL parameters
@@ -162,7 +173,6 @@ class SoapCurl extends SoapBase implements SoapInterface
     public function wsdl($url)
     {
         $response = '';
-        $this->saveTemporarilyKeyFiles();
         $url .= '?WSDL';
         $oCurl = curl_init();
         curl_setopt($oCurl, CURLOPT_URL, $url);
@@ -172,11 +182,7 @@ class SoapCurl extends SoapBase implements SoapInterface
         curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($oCurl, CURLOPT_SSLVERSION, $this->soapprotocol);
-        curl_setopt($oCurl, CURLOPT_SSLCERT, $this->tempdir.$this->certfile);
-        curl_setopt($oCurl, CURLOPT_SSLKEY, $this->tempdir.$this->prifile);
-        if (! empty($this->temppass)) {
-            curl_setopt($oCurl, CURLOPT_KEYPASSWD, $this->temppass);
-        }
+        $this->setClientCertificate($oCurl);
         curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true);
         $response  = curl_exec($oCurl);
         $soaperror = curl_error($oCurl);
