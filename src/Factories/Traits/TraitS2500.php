@@ -1149,14 +1149,14 @@ trait TraitS2500
                 $this->dom->addChild(
                     $ivlr,
                     "indenSD",
-                    $vlr->indensd,
-                    true
+                    $vlr->indensd ?? null,
+                    false
                 );
                 $this->dom->addChild(
                     $ivlr,
                     "indenAbono",
-                    $vlr->indenabono,
-                    true
+                    $vlr->indenabono ?? null,
+                    false
                 );
                 if (!empty($vlr->abono)) {
                     foreach ($vlr->abono as $ab) {
@@ -1765,14 +1765,14 @@ trait TraitS2500
             $this->dom->addChild(
                 $ivlr,
                 "indenSD",
-                $vlr->indensd,
-                true
+                $vlr->indensd ?? null,
+                false
             );
             $this->dom->addChild(
                 $ivlr,
                 "indenAbono",
-                $vlr->indenabono,
-                true
+                $vlr->indenabono ?? null,
+                false
             );
             if (!empty($vlr->abono)) {
                 foreach ($vlr->abono as $ab) {
