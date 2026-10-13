@@ -1,4 +1,21 @@
-# SPED eSocial
+# eSocial (fork System Web)
+
+> **Este repositório é um fork de [nfephp-org/sped-esocial](https://github.com/nfephp-org/sped-esocial),
+> mantido pela [System Web](https://github.com/systemweb-dev) para uso no enviaesocial.**
+>
+> Todo o crédito pelo trabalho original é dos autores e contribuidores do projeto **NFePHP**:
+> **Roberto L. Machado** (criador e mantenedor), **Rodrigo Traleski** ([Actuary](http://www.actuary.com.br/))
+> e **Ademilson Santana da Silva**, além de toda a [comunidade de contribuidores](https://github.com/nfephp-org/sped-esocial/graphs/contributors).
+>
+> O código continua sob as licenças originais (MIT, LGPLv3+ ou GPLv3+), com o aviso de copyright
+> "Copyright (c) 2016 NFePHP" preservado no arquivo [LICENSE](LICENSE). As alterações feitas neste fork
+> são da System Web e seguem a mesma licença.
+>
+> Pacote composer: `systemweb-dev/esocial` (o namespace PHP `NFePHP\eSocial` foi mantido).
+
+---
+
+## SPED eSocial (README original)
 **Biblioteca PHP para integração de uma aplicação com o [eSocial](http://www.esocial.gov.br/) do Ministério do Trabalho, Receita Federal e Caixa Economica Federal**
 
 *sped-esocial* é um framework que oferece a integração de uma aplicação com os serviços do projeto do Ministério do Trabalho conhecido como eSocial. Ele fornece a possibilidade de construir eventos em XML, enviar lotes e realizar consultas através de requisições SOAP com SLL, usando certificado digital modelo A1 (PKCS#12) que pertença à cadeia de certificação Brasileira.
@@ -229,9 +246,14 @@ Caso você encontre algum problema relativo a segurança, por favor envie um ema
 
 Roberto L. Machado (owner and developer)
 
+Rodrigo Traleski ([Actuary](http://www.actuary.com.br/)) e Ademilson Santana da Silva (developers), e os
+[contribuidores do NFePHP](https://github.com/nfephp-org/sped-esocial/graphs/contributors).
+
+Fork mantido por [System Web](https://github.com/systemweb-dev).
+
 ## License
 
-Este pacote está diponibilizado sob LGPLv3 ou MIT License (MIT). Leia  [Arquivo de Licença](LICENSE.md) para maiores informações.
+Este pacote está diponibilizado sob LGPLv3 ou MIT License (MIT). Leia  [Arquivo de Licença](LICENSE) para maiores informações.
 
 [ico-stable]: https://poser.pugx.org/nfephp-org/sped-esocial/version
 [ico-stars]: https://img.shields.io/github/stars/nfephp-org/sped-esocial.svg?style=flat-square
