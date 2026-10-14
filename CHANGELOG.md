@@ -6,14 +6,39 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.0 - 2026-10-14
+
+First release of the System Web fork. Breaking changes from the upstream 1.0.x API are listed
+under Changed and Removed.
+
+### Changed
+- Package renamed to `systemweb-dev/esocial` (fork of `nfephp-org/sped-esocial`); namespace `NFePHP\eSocial` and class names are unchanged.
+- `EventsException` keeps the error code in `getCode()`; codes 1004 and 1005 were removed.
+- TLS of the eSocial webservices is verified by default (system CA store; the hosts use the public GlobalSign Root R46). `loadCA()` replaces the store and throws if the file does not exist; `disableSecurity(true)` is the explicit opt-out.
+- The certificate and key go to cURL in memory (`CURLOPT_SSLCERT_BLOB`/`CURLOPT_SSLKEY_BLOB`); no PEM is written to disk.
+- Only the S-1.3 layout: `eventoVersion` below 1.3 throws `InvalidArgumentException` in the event constructor.
+- Batch groups follow the MOS S-1.3 (1 = tables, 2 = non-periodic, 3 = periodic); the group may be an int or a numeric string; an invalid group throws `InvalidArgumentException`.
+- Event Ids no longer repeat in the same process; `sequencial` must be an integer from 1 to 99999.
+- Communication package 1.6-Alfa (`serviceVersion '1.6.0'`, alphanumeric CNPJ) is the recommended one.
+- PHP >= 8.1; optional typed parameters are explicitly nullable.
+- `Tools::EVT_INICIAIS` is deprecated in favour of `Tools::EVT_TABELAS`.
+
+### Removed
+- Builders of events the library cannot send (extinct in S-1.x, eSocial returns S-5xxx, Judiciary S-8200/S-8299): calling them throws `EventsException` code 1003 with the reason.
+- Layouts S-1.0, S-1.1 and S-1.2 (schemes, JSON schemas and examples).
+- `ParamsStandardize`, `Sanitize`, `SoapCode`, the `console/` scripts and dead `Factory`/`SoapBase` methods.
+- Per-event docs of the old layouts (`docs/Evt*.md`, `EVENTOS_S_1_*.md`), replaced by the generated `docs/eventos/`.
+
 ### Added
 - Apply the S-1.3 XSD package of 2026-10-26 (NT 07/2026 rev. 24/09/2026, item 3.3).
 - S-2500: `nmSoc`, `nmCargo`, `nmFuncao`, `CBOFuncao` and `localTrabalho` (`localTrabGeral`, `localTempDom`) in the S-1.3 builder and JSON schema; `tpRegTrab` accepts 3.
 - S-2299, S-2399 and S-2420: optional `indCPFDesvinc` (only value 9) in the S-1.3 builder and JSON schema.
 - `Common\SystemMessages`: official catalog of the eSocial System Messages v2.5 (`data/mensagens-sistema.json`), with text and suggested actions by code (`get(191)`, `get('MS0191')`, suffixed variants).
 - S-1000 (S-1.3): optional `indPertIRRF` (`S`), already in the XSD and missing from the builder.
+- Generated per-event docs in `docs/eventos/` (`gen_docs.py`) and the docs checker `check_docs.py`; README usage guide, `docs/Tools.md` and `docs/Config.md` rewritten.
 
 ### Fixed
+- `XsdSeeker`: every lookup starts from a clean list (a `Tools` created after another with a different communication package inherited its files).
 - S-1005: emit `fimValid` in `inclusao/ideEstab` too (allowed by `T_ideEstab` in every S-1.x layout).
 - S-1020: build the `dadosOpPort` group (`aliqRat`, `fap`), accepted by the JSON schema but never emitted.
 - S-1200 (S-1.3): read `observacao` from `infoComplem/sucessaoVinc` instead of `infoComplem`.

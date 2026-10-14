@@ -38,6 +38,8 @@ Pacotes preparados antes da data ficam em branches `xsd/<data>` (lista e data de
 | `src/Common/Soap/SoapCurl.php` | conexão com o governo (certificado pela memória) |
 | `src/Tools.php` | envio/consulta de lotes e grupos de eventos |
 | `examples/Fake/v_S_01_03_00/` | um exemplo por evento; base do `validate.php` |
+| `docs/eventos/` | uma página por evento, **gerada** por `gen_docs.py` (não edite à mão) |
+| `docs/Tools.md`, `docs/Config.md` | API do `Tools` e chaves do config (conferidas por `check_docs.py`) |
 | `tests/Unit/` | testes em Pest (`composer test`); helpers em `tests/Pest.php` |
 
 ## Regras
@@ -52,6 +54,8 @@ Pacotes preparados antes da data ficam em branches `xsd/<data>` (lista e data de
   `Tools::EVT_TABELAS` (`EVT_INICIAIS` é alias obsoleto).
 - Diffs mínimos: não reformate arquivos inteiros (inclusive JSON).
 - Branch `master`; commits em português; push só com ok do responsável.
+- Versões semver com tag anotada `vX.Y.Z` (desde `v2.0.0`): pacote XSD ou campo novo = minor,
+  correção = patch, remoção = major. Registro no `CHANGELOG.md`.
 - Campo `minOccurs="0"` no XSD → `addChild(..., $valor ?? null, false)`. Já corrigidos:
   `codIncCPRP` (S-1010), `indenSD`/`indenAbono` (S-2500); `ideSeqProc` (S-2501) acrescentado.
 - Certificado só pela memória (`CURLOPT_SSLCERT_BLOB`/`CURLOPT_SSLKEY_BLOB`); nunca grave PEM.
@@ -79,5 +83,7 @@ Pacotes preparados antes da data ficam em branches `xsd/<data>` (lista e data de
 python3 .claude/skills/update-esocial/scripts/check.py      # o que saiu de novo
 python3 .claude/skills/update-esocial/scripts/compare_xsd.py schemes/v_S_01_03_00 <pasta-nova>
 php .claude/skills/update-esocial/scripts/validate.php           # exemplos válidos no XSD
+python3 .claude/skills/update-esocial/scripts/gen_docs.py --check  # docs/eventos em dia
+python3 .claude/skills/update-esocial/scripts/check_docs.py        # docs só citam API existente
 composer test                                                   # suíte Pest (vendor/bin/pest)
 ```

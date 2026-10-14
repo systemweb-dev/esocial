@@ -43,7 +43,11 @@ propostas e peça aprovação antes de editar. Mudança só de documentação/en
 
 ## 6. Validar
 - `php .claude/skills/update-esocial/scripts/validate.php` (todos os exemplos válidos no XSD novo)
-- `php -d xdebug.mode=off vendor/bin/phpunit`
+- `composer test` (suíte Pest)
+- `python3 .claude/skills/update-esocial/scripts/gen_docs.py` (regenera `docs/eventos/`; confira o
+  diff e a seção "Campos sem correspondência no XSD" das páginas alteradas)
+- `python3 .claude/skills/update-esocial/scripts/check_docs.py` (README, Tools.md e Config.md só
+  citam API existente)
 
 ## 7. Parar antes do commit
 Mostre: pacote aplicado, arquivos alterados, eventos afetados, resultado da validação. Com o ok do
@@ -72,3 +76,7 @@ aviso ao enviaesocial.
 O `compare_xsd.py` nomeia o caminho pelo tipo (`#T_infoCadastro/indOptRegEletron`). Tipo
 renomeado aparece como todos os filhos removidos e novos (`/campo: tipo T_a -> T_b` denuncia):
 nesse caso compare os filhos à mão.
+
+Versões (semver): no merge de um pacote, `## Unreleased` do `CHANGELOG.md` vira `## 2.N.0 - <data>`
+e o commit recebe a tag anotada `v2.N.0` (push da tag com ok). Correção = patch; remoção ou
+mudança incompatível = major. Antes do merge, `gen_docs.py --check` no branch.
