@@ -43,13 +43,10 @@ Este pacote é aderente com os [PSR-1], [PSR-2] e [PSR-4]. Se você observar neg
 [Grupo de discussão do NFePHP](http://groups.google.com/group/nfephp) - Para acompanhar o desenvolvimento e participar das discussões e tirar duvidas.
 [Chat do Gitter](https://gitter.im/nfephp-org/sped-esocial) - Para iniciar discussões especificas sobre o desenvolvimento deste pacote.
 
-## Layout S-1.0 (a partir de 10/05/2021)
+## Leiaute
 
-## Layout S-1.1 (a partir de 19/03/2023)
-
-## [Layout S-1.2 (a partir de 20/11/2023)](EVENTOS_S_1_2.md)
-
-## [Layout S-1.3 (a partir de 02/12/2024)](EVENTOS_S_1_3.md)
+Só o leiaute **S-1.3** (o S-1.2 foi encerrado no eSocial em 02/02/2025). Eventos que a lib monta,
+com os campos de cada um: [docs/eventos](docs/eventos/README.md).
 
 ## CRONOGRAMA PREVISTO
 
@@ -229,7 +226,91 @@ Ou ainda alterando o composer.json do seu aplicativo inserindo:
 ```
 
 ## Forma de uso
-Em breve ....
+
+Fluxo completo: config, certificado, evento, envio do lote, consulta do processamento e leitura
+das ocorrências. Detalhes em [docs/Config.md](docs/Config.md), [docs/Tools.md](docs/Tools.md) e,
+campo a campo, em [docs/eventos](docs/eventos/README.md).
+
+```php
+use NFePHP\Common\Certificate;
+use NFePHP\eSocial\Common\Standardize;
+use NFePHP\eSocial\Common\SystemMessages;
+use NFePHP\eSocial\Event;
+use NFePHP\eSocial\Tools;
+
+$configJson = json_encode([
+    'tpAmb' => 2, // Produção Restrita
+    'verProc' => 'MeuSistema_1.0',
+    'eventoVersion' => 'S.1.3.0',
+    'serviceVersion' => '1.6.0',
+    'empregador' => ['tpInsc' => 1, 'nrInsc' => '12345678', 'nmRazao' => 'Empresa Exemplo Ltda'],
+    'transmissor' => ['tpInsc' => 1, 'nrInsc' => '12345678000195'],
+]);
+
+// certificado A1 só em memória (não grave o PEM em disco)
+$certificate = Certificate::readPfx(file_get_contents('/seguro/certificado.pfx'), $senha);
+
+// 1. montar o evento: as chaves do stdClass seguem docs/eventos/S-1000.md
+$std = new stdClass();
+$std->sequencial = 1;
+$std->modo = 'INC';
+$std->ideperiodo = new stdClass();
+$std->ideperiodo->inivalid = '2026-10';
+$std->infocadastro = new stdClass();
+$std->infocadastro->classtrib = '99';
+$std->infocadastro->indcoop = 0;
+$std->infocadastro->indconstr = 0;
+$std->infocadastro->inddesfolha = 0;
+$std->infocadastro->indporte = 'S';
+$std->infocadastro->indoptregeletron = 1;
+
+$evento = Event::s1000($configJson, $std, $certificate); // valida a entrada no JSON schema
+
+// 2. enviar o lote (grupo 1 = tabelas); o XML é assinado e validado no XSD antes do envio
+$tools = new Tools($configJson, $certificate);
+$resposta = $tools->enviarLoteEventos(Tools::EVT_TABELAS, [$evento]);
+
+$standardize = new Standardize();
+$envio = $standardize->toStd($resposta);
+if ((int) $envio->status->cdResposta !== 201) {          // 201 = lote recebido
+    throw new RuntimeException($envio->status->descResposta); // lote recusado: sem protocolo
+}
+$protocolo = $envio->dadosRecepcaoLote->protocoloEnvio;
+
+// 3. consultar o processamento (aguarde alguns segundos depois do envio)
+$retorno = $tools->consultarLoteEventos($protocolo);
+
+// 4. ocorrências: o retorno traz código e descrição; a ação sugerida vem do catálogo oficial
+$dom = new DOMDocument();
+$dom->loadXML($retorno);
+foreach ($dom->getElementsByTagName('ocorrencia') as $ocorrencia) {
+    $codigo = $ocorrencia->getElementsByTagName('codigo')->item(0)->textContent;
+    $mensagem = SystemMessages::get($codigo); // ['codigo' => 'MS0191', 'texto', 'acoes', 'variantes']
+}
+```
+
+- **Id do evento:** `$evento->evtid`. Com vários processos montando eventos do mesmo empregador,
+  aloque o `sequencial` (1 a 99999) para não repetir Id no mesmo segundo.
+- **Eventos que a lib não monta** (retornos S-5xxx, extintos, S-8200/S-8299) respondem com
+  `EventsException` código 1003 e o motivo.
+- **TLS:** o certificado do servidor é verificado no store do sistema (instale
+  `ca-certificates`). Opções em [docs/Tools.md](docs/Tools.md#conexão-tls-e-certificado).
+- **Exemplos** de cada evento, com todos os campos: `examples/Fake/v_S_01_03_00/`.
+
+## Atualização com o gov.br
+
+O governo ajusta o leiaute S-1.3 por Nota Técnica várias vezes ao ano. O estado aplicado fica
+em [ESOCIAL-VERSION.json](ESOCIAL-VERSION.json) (pacote de XSD, nota técnica, pacote de
+comunicação, Mensagens do Sistema).
+
+- A skill `update-esocial` (`.claude/skills/update-esocial/SKILL.md`) confere o
+  [Portal do eSocial](https://www.gov.br/esocial/pt-br/documentacao-tecnica), aplica o pacote,
+  compara os XSD, valida os exemplos e regenera [docs/eventos](docs/eventos/README.md).
+- Pacote publicado antes da data fica pronto num branch `xsd/<data>` (lista e data de merge em
+  `pending_packages`). O merge no `master` é feito na abertura da Produção Restrita.
+- **Versões (semver):** pacote de XSD ou campo novo = *minor* (`2.1.0`); correção = *patch*;
+  remoção ou mudança incompatível = *major*. Use `"systemweb-dev/esocial": "^2.0"` e acompanhe o
+  [CHANGELOG](CHANGELOG.md).
 
 ## Log de mudanças e versões
 Acompanhe o [CHANGELOG](CHANGELOG.md) para maiores informações sobre as alterações recentes.
