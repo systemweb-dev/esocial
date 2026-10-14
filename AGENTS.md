@@ -27,7 +27,7 @@ Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique pert
 | Caminho | Para quê |
 |---|---|
 | `schemes/v_S_01_03_00/` | XSD oficiais do leiaute (substituídos a cada pacote) |
-| `schemes/comunicacao/v1_5_0/` | XSD/WSDL de envio e consulta de lotes |
+| `schemes/comunicacao/v1_6_0/` | XSD/WSDL de envio e consulta de lotes (1.6-Alfa; `v1_5_0` mantido até o SP2) |
 | `jsonSchemes/v_S_01_03_00/` | validação da entrada (`stdClass`) antes de montar o XML |
 | `src/Factories/Evt*.php` | um montador por evento |
 | `src/Factories/Traits/TraitSxxxx.php` | o XML de cada evento; `toNodeS130()` é o leiaute atual |
@@ -44,6 +44,17 @@ Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique pert
 - Campo `minOccurs="0"` no XSD → `addChild(..., $valor ?? null, false)`. Já corrigidos:
   `codIncCPRP` (S-1010), `indenSD`/`indenAbono` (S-2500); `ideSeqProc` (S-2501) acrescentado.
 - Certificado só pela memória (`CURLOPT_SSLCERT_BLOB`/`CURLOPT_SSLKEY_BLOB`); nunca grave PEM.
+- TLS do webservice verificado por padrão (`SoapCurl::securityOptions()`, store do sistema; os
+  hosts do eSocial usam a raiz pública GlobalSign Root R46). `loadCA()` **substitui** o store;
+  `disableSecurity(true)` desliga a verificação e só serve para ambiente controlado.
+  Checagem com rede: `vendor/bin/pest --group=network` (fora do `composer test`).
+- Pacote de comunicação padrão: `serviceVersion '1.6.0'` (pasta `v1_6_0` = 1.6-Alfa, aceita
+  CNPJ alfanumérico). Com `'1.5.0'` o lote de CNPJ alfanumérico é recusado localmente.
+- Grupos do lote: 1 = tabelas, 2 = não periódicos, 3 = periódicos (MOS S-1.3, seção 10;
+  `Common\Tools::$grupos`). S-5xxx (retornos) e S-8200/S-8299 (Judiciário) não vão em lote.
+- O Id do evento é `$evento->evtid`: o `FactoryId` evita repetição no mesmo processo trocando o
+  sequencial. Entre processos (vários workers do mesmo empregador) quem chama aloca o
+  `sequencial`.
 - Nunca rode com Xdebug ou `display_errors` ligados onde há certificado: o stack trace imprime a chave.
 - Testes em Pest e AAA estrito: um Act por teste, exceção em `->throws()`, helper sem asserção.
   Campo novo ou bug de montador entra com teste em `tests/Unit/Factories/`.

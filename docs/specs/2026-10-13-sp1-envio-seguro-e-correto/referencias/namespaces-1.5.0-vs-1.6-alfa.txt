@@ -1,0 +1,13 @@
+DIFERE RetornoEvento-v1_2_1.xsd 
+  1.5.0: ['http://www.esocial.gov.br/schema/evt/retornoEvento/v1_2_1'] 
+  Alfa : None
+DIFERE RetornoEvento-v1_3_0.xsd 
+  1.5.0: None 
+  Alfa : ['http://www.esocial.gov.br/schema/evt/retornoEvento/v1_3_0']
+DIFERE WsConsultarIdentificadoresEventos-v1_0_0.wsdl 
+  1.5.0: ['http://www.esocial.gov.br/servicos/empregador/consulta/identificadores-eventos/v1_0_0', 'http://www.esocial.gov.br/servicos/empregador/consulta/identificadores-eventos/v1_0_0/Imports'] 
+  Alfa : ['http://www.esocial.gov.br/servicos/empregador/consulta/identificadores-eventos/v1_0_0']
+DIFERE WsSolicitarDownloadEventos-v1_0_0.wsdl 
+  1.5.0: ['http://www.esocial.gov.br/servicos/empregador/download/solicitacao/v1_0_0', 'http://www.esocial.gov.br/servicos/empregador/download/solicitacao/v1_0_0/Imports'] 
+  Alfa : ['http://www.esocial.gov.br/servicos/empregador/download/solicitacao/v1_0_0']
+arquivos 1.5.0: 17  Alfa: 17  iguais em namespace: 14
