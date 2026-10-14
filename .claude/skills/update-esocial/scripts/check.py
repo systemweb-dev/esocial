@@ -69,6 +69,18 @@ def comm_is_news(published: list, applied: str) -> bool:
     return bool(published) and max(comm_key(v) for v in published) > comm_key(applied)
 
 
+def msgs_is_news(published: list, applied) -> bool:
+    """Mensagens do Sistema publicadas acima da versão revisada (None = nunca revisada)."""
+    if not published:
+        return False
+    return applied is None or max(ver(v) for v in published) > ver(applied)
+
+
+def pending_branch(state: dict, package: str):
+    """Pacote de XSD já preparado num branch (pending_packages do ESOCIAL-VERSION.json) ou None."""
+    return next((p for p in state.get('pending_packages', []) if p.get('xsd_package') == package), None)
+
+
 def main() -> int:
     state = json.loads((ROOT / 'ESOCIAL-VERSION.json').read_text())
     try:
@@ -84,6 +96,10 @@ def main() -> int:
     applied = state['xsd_package']
     pending = sorted(d for d in found['xsd'] if d > applied)
     print(f'XSD S-1.3     aplicado {applied} | novos: {", ".join(pending) or "nenhum"}')
+    for package in pending:
+        ready = pending_branch(state, package)
+        if ready:
+            print(f'              {package}: pronto no branch {ready["branch"]} (merge em {ready["merge_on"]})')
     has_news |= bool(pending)
 
     latest_nt = found['nts'][-1] if found['nts'] else '?'
@@ -97,7 +113,7 @@ def main() -> int:
 
     msgs = max(found['msgs'], key=ver) if found['msgs'] else '?'
     print(f'Mensagens     lida {state.get("system_messages") or "nunca"} | publicada {msgs}')
-    has_news |= msgs != '?' and msgs != state.get('mensagens_sistema')
+    has_news |= msgs_is_news(found['msgs'], state.get('system_messages'))
 
     try:
         commits = json.loads(get(UPSTREAM))
@@ -113,7 +129,11 @@ def main() -> int:
         print(f'Upstream      não consultado ({e})')
 
     if pending:
-        print(f'\nPróximo passo: aplicar XSD {pending[0]} ({found["xsd"][pending[0]]})')
+        ready = pending_branch(state, pending[0])
+        if ready:
+            print(f'\nPróximo passo: fazer o merge de {ready["branch"]} no master em {ready["merge_on"]}')
+        else:
+            print(f'\nPróximo passo: aplicar XSD {pending[0]} ({found["xsd"][pending[0]]})')
     return 10 if has_news else 0
 
 

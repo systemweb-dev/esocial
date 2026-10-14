@@ -41,5 +41,49 @@ class ComunicacaoTest(unittest.TestCase):
         self.assertTrue(news)
 
 
+class MensagensTest(unittest.TestCase):
+    def test_versao_aplicada_igual_a_publicada_nao_e_novidade(self):
+        published = ['2.5']
+
+        news = check.msgs_is_news(published, '2.5')
+
+        self.assertFalse(news)
+
+    def test_nunca_revisada_e_novidade(self):
+        published = ['2.5']
+
+        news = check.msgs_is_news(published, None)
+
+        self.assertTrue(news)
+
+    def test_versao_maior_publicada_e_novidade(self):
+        published = ['2.5', '2.6']
+
+        news = check.msgs_is_news(published, '2.5')
+
+        self.assertTrue(news)
+
+
+class PendentesTest(unittest.TestCase):
+    STATE = {'pending_packages': [
+        {'xsd_package': '2026-11-23', 'branch': 'xsd/2026-11-23', 'merge_on': '2026-11-09'},
+    ]}
+
+    def test_pacote_pronto_em_branch(self):
+        ready = check.pending_branch(self.STATE, '2026-11-23')
+
+        self.assertEqual(ready, {'xsd_package': '2026-11-23', 'branch': 'xsd/2026-11-23', 'merge_on': '2026-11-09'})
+
+    def test_pacote_sem_branch(self):
+        ready = check.pending_branch(self.STATE, '2026-12-14')
+
+        self.assertIsNone(ready)
+
+    def test_estado_sem_a_lista(self):
+        ready = check.pending_branch({}, '2026-11-23')
+
+        self.assertIsNone(ready)
+
+
 if __name__ == '__main__':
     unittest.main()
