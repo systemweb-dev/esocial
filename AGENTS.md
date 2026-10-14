@@ -27,7 +27,7 @@ Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique pert
 | Caminho | Para quê |
 |---|---|
 | `schemes/v_S_01_03_00/` | XSD oficiais do leiaute (substituídos a cada pacote) |
-| `schemes/comunicacao/v1_6_0/` | XSD/WSDL de envio e consulta de lotes (1.6-Alfa; `v1_5_0` mantido até o SP2) |
+| `schemes/comunicacao/v1_6_0/` | XSD/WSDL de envio e consulta de lotes (1.6-Alfa, recomendado; os pacotes 1.1.0 a 1.5.0 continuam disponíveis) |
 | `jsonSchemes/v_S_01_03_00/` | validação da entrada (`stdClass`) antes de montar o XML |
 | `src/Factories/Evt*.php` | um montador por evento |
 | `src/Factories/Traits/TraitSxxxx.php` | o XML de cada evento; `toNodeS130()` é o leiaute atual |
@@ -39,6 +39,13 @@ Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique pert
 ## Regras
 
 - Namespace `NFePHP\eSocial` e nomes de classe mantidos.
+- Só o leiaute **S-1.3** (S-1.2 encerrado no eSocial em 02/02/2025): `eventoVersion` abaixo
+  disso é recusado no construtor do evento. Os `toNodeS100/S110/S120` dos traits continuam
+  porque vários `toNodeS130` delegam para eles.
+- Eventos que a lib não monta (`Event::$unavailable`: retornos S-5xxx, extintos, S-8200/S-8299)
+  respondem com `EventsException` código 1003 e o motivo.
+- PHP >= 8.1; parâmetro opcional tipado sempre com `?Tipo $x = null`. Grupo 1 do lote:
+  `Tools::EVT_TABELAS` (`EVT_INICIAIS` é alias obsoleto).
 - Diffs mínimos: não reformate arquivos inteiros (inclusive JSON).
 - Branch `master`; commits em português; push só com ok do responsável.
 - Campo `minOccurs="0"` no XSD → `addChild(..., $valor ?? null, false)`. Já corrigidos:
@@ -48,7 +55,7 @@ Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique pert
   hosts do eSocial usam a raiz pública GlobalSign Root R46). `loadCA()` **substitui** o store;
   `disableSecurity(true)` desliga a verificação e só serve para ambiente controlado.
   Checagem com rede: `vendor/bin/pest --group=network` (fora do `composer test`).
-- Pacote de comunicação padrão: `serviceVersion '1.6.0'` (pasta `v1_6_0` = 1.6-Alfa, aceita
+- Pacote de comunicação recomendado (o dos testes e exemplos): `serviceVersion '1.6.0'` (pasta `v1_6_0` = 1.6-Alfa, aceita
   CNPJ alfanumérico). Com `'1.5.0'` o lote de CNPJ alfanumérico é recusado localmente.
 - Grupos do lote: 1 = tabelas, 2 = não periódicos, 3 = periódicos (MOS S-1.3, seção 10;
   `Common\Tools::$grupos`). S-5xxx (retornos) e S-8200/S-8299 (Judiciário) não vão em lote.
