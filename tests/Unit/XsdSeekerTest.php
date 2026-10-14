@@ -23,10 +23,20 @@ it('encontra o schema e a versão de cada operação no pacote de comunicação'
     ['WsSolicitarDownloadEventos', 'WsSolicitarDownloadEventos-v1_0_0.wsdl'],
 ]);
 
-it('devolve a lista sem alteração quando a pasta não existe', function () {
-    $before = XsdSeeker::$list;
+it('devolve todas as operações sem versão quando a pasta não existe', function () {
+    XsdSeeker::seek(dirname(__DIR__, 2) . '/schemes/comunicacao/v1_5_0/');
 
     $list = XsdSeeker::seek('/caminho/que/nao/existe/');
 
-    expect($list)->toBe($before);
+    expect(array_unique(array_column($list, 'version')))->toBe([''])
+        ->and(array_keys($list))->toBe(array_keys(XsdSeeker::$list));
+});
+
+it('não herda versões de uma pasta lida antes', function () {
+    XsdSeeker::seek(dirname(__DIR__, 2) . '/schemes/comunicacao/v1_5_0/');
+
+    $list = XsdSeeker::seek(dirname(__DIR__, 2) . '/schemes/comunicacao/v1_1_0/');
+
+    expect($list['ConsultaIdentificadoresEventosEmpregador']['version'])->toBe('')
+        ->and($list['EnvioLoteEventos']['name'])->toBe('EnvioLoteEventos-v1_1_0.xsd');
 });

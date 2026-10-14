@@ -22,27 +22,35 @@ class XsdSeeker
         'WsSolicitarDownloadEventos' => ['version' => '', 'name' => ''],
     ];
 
+    /**
+     * Procura, na pasta do pacote de comunicação, o arquivo e a versão de cada operação.
+     * Cada chamada parte de uma lista limpa; $list guarda o resultado da última chamada.
+     *
+     * @param string $path
+     * @return array
+     */
     public static function seek($path)
     {
-        if (!is_dir($path)) {
-            return self::$list;
+        $list = [];
+        foreach (array_keys(self::$list) as $key) {
+            $list[$key] = ['version' => '', 'name' => ''];
         }
-        $arr = scandir($path);
-        foreach ($arr as $filename) {
-            if ($filename == '.' || $filename == '..') {
-                continue;
-            }
-            foreach (self::$list as $key => $content) {
-                $len = strlen($key);
-                $chave = substr($filename, 0, $len);
-                $version = self::getVersion($filename);
-                if ($chave == $key) {
-                    self::$list[$key] = ['version' => $version, 'name' => $filename];
-                    break;
+        if (is_dir($path)) {
+            foreach (scandir($path) as $filename) {
+                if ($filename == '.' || $filename == '..') {
+                    continue;
+                }
+                foreach (array_keys($list) as $key) {
+                    if (substr($filename, 0, strlen($key)) == $key) {
+                        $list[$key] = ['version' => self::getVersion($filename), 'name' => $filename];
+                        break;
+                    }
                 }
             }
         }
-        return self::$list;
+        self::$list = $list;
+
+        return $list;
     }
 
     public static function getVersion($filename)
