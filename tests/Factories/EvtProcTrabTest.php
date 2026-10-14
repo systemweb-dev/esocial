@@ -97,24 +97,76 @@ class EvtProcTrabTest extends ESocialTestCase
         return $names;
     }
 
-    public function testNewFieldsAreEmittedInXsdOrder()
+    private function newInfoComplWithRegime(int $tpRegTrab): array
+    {
+        return [
+            'infovinc' => [
+                'tpregtrab' => $tpRegTrab,
+                'tpregprev' => 1,
+                'dtadm' => '2022-11-03',
+                'infodeslig' => [
+                    'dtdeslig' => '2023-11-15',
+                    'mtvdeslig' => '01',
+                    'pensalim' => 0,
+                ],
+            ],
+        ];
+    }
+
+    public function testNmSocIsEmittedInIdeTrab()
     {
         $std = $this->newPayload($this->newInfoComplWithAllNewFields());
         $std->nmsoc = 'Nome Social Teste';
 
         $document = $this->signedDocument($std);
 
-        $this->assertSame('Nome Social Teste', $document->getElementsByTagName('nmSoc')->item(0)->textContent);
+        $ideTrab = $document->getElementsByTagName('ideTrab')->item(0);
+        $this->assertSame('Nome Social Teste', $ideTrab->getElementsByTagName('nmSoc')->item(0)->textContent);
+    }
+
+    public function testInfoComplNewFieldsFollowXsdOrder()
+    {
+        $std = $this->newPayload($this->newInfoComplWithAllNewFields());
+
+        $document = $this->signedDocument($std);
+
         $infoCompl = $document->getElementsByTagName('infoCompl')->item(0);
         $this->assertSame(
             ['nmCargo', 'codCBO', 'nmFuncao', 'CBOFuncao', 'natAtividade', 'localTrabalho'],
             $this->childNames($infoCompl)
         );
-        $this->assertSame('142105', $document->getElementsByTagName('CBOFuncao')->item(0)->textContent);
+        $this->assertSame('142105', $infoCompl->getElementsByTagName('CBOFuncao')->item(0)->textContent);
+    }
+
+    public function testLocalTrabalhoIsEmittedWithOptionalFieldsOmitted()
+    {
+        $std = $this->newPayload($this->newInfoComplWithAllNewFields());
+
+        $document = $this->signedDocument($std);
+
         $localTrabalho = $document->getElementsByTagName('localTrabalho')->item(0);
         $this->assertSame(['localTrabGeral', 'localTempDom'], $this->childNames($localTrabalho));
-        $this->assertSame(0, $document->getElementsByTagName('tpLograd')->length);
-        $this->assertSame('3550308', $document->getElementsByTagName('codMunic')->item(1)->textContent);
+        $localTempDom = $localTrabalho->getElementsByTagName('localTempDom')->item(0);
+        $this->assertSame(0, $localTempDom->getElementsByTagName('tpLograd')->length);
+        $this->assertSame('3550308', $localTempDom->getElementsByTagName('codMunic')->item(0)->textContent);
+    }
+
+    public function testRegimeThreeIsAccepted()
+    {
+        $std = $this->newPayload($this->newInfoComplWithRegime(3));
+
+        $document = $this->signedDocument($std);
+
+        $this->assertSame('3', $document->getElementsByTagName('tpRegTrab')->item(0)->textContent);
+    }
+
+    public function testRegimeAboveThreeIsRejected()
+    {
+        $std = $this->newPayload($this->newInfoComplWithRegime(4));
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('infovinc.tpregtrab');
+
+        new EvtProcTrab($this->configJson, $std, $this->certificate, '2026-08-01 10:00:00');
     }
 
     public function testOmittedNewFieldsAreNotEmitted()
