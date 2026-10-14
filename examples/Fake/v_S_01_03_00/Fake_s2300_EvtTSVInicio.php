@@ -190,7 +190,7 @@ $std->localtrabgeral->desccomp = 'Bla bla bla';
 //Informações de mudança de CPF do trabalhador.
 $std->mudancacpf = new \stdClass(); //Opcional
 $std->mudancacpf->cpfant = '12345678901'; //Obrigatório
-$std->mudancacpf->matriant = 'ABC1234'; //Opcional
+$std->mudancacpf->matricant = 'ABC1234'; //Opcional
 $std->mudancacpf->dtaltcpf = '2018-11-10'; //Obrigatório
 $std->mudancacpf->observacao = 'bla bla bla'; //Opcional
 

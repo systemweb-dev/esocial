@@ -57,10 +57,10 @@ $std->dadoslotacao->infoemprparcial->nrinsccontrat = '12345678901234';
 $std->dadoslotacao->infoemprparcial->tpinscprop = 2;
 $std->dadoslotacao->infoemprparcial->nrinscprop = '12345678901234';
 
-//campo opcional
-$std->dadoslotacao->dadosopport = new \stdClass();
-$std->dadoslotacao->dadosopport->aliqrat = 3;
-$std->dadoslotacao->dadosopport->fap = 1.04;
+//dadosOpPort: obrigatório se tplotacao = '08' (operador portuário); não informar nos demais casos
+//$std->dadoslotacao->dadosopport = new \stdClass();
+//$std->dadoslotacao->dadosopport->aliqrat = 3;
+//$std->dadoslotacao->dadosopport->fap = 1.04;
 
 //campo opcional, usar somente qunado alteração
 $std->novavalidade = new \stdClass();

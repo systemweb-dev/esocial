@@ -42,7 +42,7 @@ $std->iniafastamento = new \stdClass();
 $std->iniafastamento->dtiniafast = '2017-08-21';
 $std->iniafastamento->codmotafast = '01';
 $std->iniafastamento->infomesmomtv = 'N';
-$std->iniafastamento->tpacidtransit = 3;
+$std->iniafastamento->tpacidtransito = 3;
 $std->iniafastamento->observacao = 'blablablabla';
 
 $std->iniafastamento->peraquis = new \stdClass();

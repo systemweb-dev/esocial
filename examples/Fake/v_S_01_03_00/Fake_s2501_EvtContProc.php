@@ -72,8 +72,8 @@ $std->idetrab[0]->infocrirrf[0]->inforra->despprocjud->vlrdespcustas = 200;
 $std->idetrab[0]->infocrirrf[0]->inforra->despprocjud->vlrdespadvogados = 12000;
 
 $std->idetrab[0]->infocrirrf[0]->inforra->ideadv[0] = new \stdClass(); //opcional 0-99
-$std->idetrab[0]->infocrirrf[0]->inforra->ideadv[0]->tpisnc = 1;
-$std->idetrab[0]->infocrirrf[0]->inforra->ideadv[0]->nrisnc = '12345678901234';
+$std->idetrab[0]->infocrirrf[0]->inforra->ideadv[0]->tpinsc = 1;
+$std->idetrab[0]->infocrirrf[0]->inforra->ideadv[0]->nrinsc = '12345678901234';
 $std->idetrab[0]->infocrirrf[0]->inforra->ideadv[0]->vlradv = 12000;
 
 $std->idetrab[0]->infocrirrf[0]->deddepen[0] = new \stdClass(); //opcional 0-999
