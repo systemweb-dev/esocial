@@ -153,6 +153,12 @@
                     "required": true,
                     "type": "string",
                     "pattern": "^[0-9]{11}$"
+                },
+                "indcpfdesvinc": {
+                    "required": false,
+                    "type": ["integer","null"],
+                    "minimum": 9,
+                    "maximum": 9
                 }
             }
         },

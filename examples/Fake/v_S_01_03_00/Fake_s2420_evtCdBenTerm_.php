@@ -38,6 +38,7 @@ $std->dttermbeneficio = '2021-10-12'; //obrigatorio
 $std->mtvtermino = '01'; //obrigatorio
 $std->cnpjorgaosuc = '12345678901234'; //opcional
 $std->novocpf = '12345678901'; //opcional
+$std->indcpfdesvinc = 9; //opcional (S-1.3, só aceita 9)
 
 
 try {

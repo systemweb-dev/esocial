@@ -1764,6 +1764,12 @@ trait TraitS2299
                 $mcpf->novocpf,
                 true
             );
+            $this->dom->addChild(
+                $mudancaCPF,
+                "indCPFDesvinc",
+                $mcpf->indcpfdesvinc ?? null,
+                false
+            );
             $infoDeslig->appendChild($mudancaCPF);
         }
 

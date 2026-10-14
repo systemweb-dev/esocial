@@ -1416,6 +1416,12 @@ trait TraitS2500
             $this->std->dtnascto ?? null,
             false
         );
+        $this->dom->addChild(
+            $idetrab,
+            "nmSoc",
+            $this->std->nmsoc ?? null,
+            false
+        );
         foreach ($this->std->infocontr as $ictr) {
             $infoctr = $this->dom->createElement("infoContr");
             $this->dom->addChild(
@@ -1483,8 +1489,26 @@ trait TraitS2500
                 $icom = $this->dom->createElement("infoCompl");
                 $this->dom->addChild(
                     $icom,
+                    "nmCargo",
+                    $icl->nmcargo ?? null,
+                    false
+                );
+                $this->dom->addChild(
+                    $icom,
                     "codCBO",
                     $icl->codcbo ?? null,
+                    false
+                );
+                $this->dom->addChild(
+                    $icom,
+                    "nmFuncao",
+                    $icl->nmfuncao ?? null,
+                    false
+                );
+                $this->dom->addChild(
+                    $icom,
+                    "CBOFuncao",
+                    $icl->cbofuncao ?? null,
                     false
                 );
                 $this->dom->addChild(
@@ -1677,6 +1701,87 @@ trait TraitS2500
                         false
                     );
                     $icom->appendChild($infoTerm);
+                }
+                if (!empty($icl->localtrabalho)) {
+                    $lt = $icl->localtrabalho;
+                    $localTrabalho = $this->dom->createElement("localTrabalho");
+                    if (!empty($lt->localtrabgeral)) {
+                        $lg = $lt->localtrabgeral;
+                        $localTrabGeral = $this->dom->createElement("localTrabGeral");
+                        $this->dom->addChild(
+                            $localTrabGeral,
+                            "tpInsc",
+                            $lg->tpinsc,
+                            true
+                        );
+                        $this->dom->addChild(
+                            $localTrabGeral,
+                            "nrInsc",
+                            $lg->nrinsc,
+                            true
+                        );
+                        $this->dom->addChild(
+                            $localTrabGeral,
+                            "descComp",
+                            $lg->desccomp ?? null,
+                            false
+                        );
+                        $localTrabalho->appendChild($localTrabGeral);
+                    }
+                    if (!empty($lt->localtempdom)) {
+                        $ld = $lt->localtempdom;
+                        $localTempDom = $this->dom->createElement("localTempDom");
+                        $this->dom->addChild(
+                            $localTempDom,
+                            "tpLograd",
+                            $ld->tplograd ?? null,
+                            false
+                        );
+                        $this->dom->addChild(
+                            $localTempDom,
+                            "dscLograd",
+                            $ld->dsclograd,
+                            true
+                        );
+                        $this->dom->addChild(
+                            $localTempDom,
+                            "nrLograd",
+                            $ld->nrlograd,
+                            true
+                        );
+                        $this->dom->addChild(
+                            $localTempDom,
+                            "complemento",
+                            $ld->complemento ?? null,
+                            false
+                        );
+                        $this->dom->addChild(
+                            $localTempDom,
+                            "bairro",
+                            $ld->bairro ?? null,
+                            false
+                        );
+                        $this->dom->addChild(
+                            $localTempDom,
+                            "cep",
+                            $ld->cep,
+                            true
+                        );
+                        $this->dom->addChild(
+                            $localTempDom,
+                            "codMunic",
+                            $ld->codmunic,
+                            true
+                        );
+                        $this->dom->addChild(
+                            $localTempDom,
+                            "uf",
+                            $ld->uf,
+                            true
+                        );
+                        $localTrabalho->appendChild($localTempDom);
+                    }
+                    $icom->appendChild($localTrabalho);
                 }
                 $infoctr->appendChild($icom);
                 if (!empty($ictr->mudcategativ)) {

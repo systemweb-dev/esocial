@@ -68,6 +68,7 @@ $std->transftit->dtnascto = '1969-10-04'; //Obrigatório
 //Informação do novo CPF do trabalhador.
 $std->mudancacpf = new \stdClass(); //Opcional
 $std->mudancacpf->novocpf = '12345678901'; //Obrigatório
+$std->mudancacpf->indcpfdesvinc = 9; //Opcional (S-1.3, só aceita 9)
 
 //Grupo onde são prestadas as informações relativas às
 //verbas devidas ao trabalhador na rescisão contratual.

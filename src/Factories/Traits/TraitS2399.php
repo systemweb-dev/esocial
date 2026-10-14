@@ -682,6 +682,12 @@ trait TraitS2399
                 $this->std->novocpf,
                 true
             );
+            $this->dom->addChild(
+                $mudancaCPF,
+                "indCPFDesvinc",
+                $this->std->indcpfdesvinc ?? null,
+                false
+            );
             $infoTSVTermino->appendChild($mudancaCPF);
         }
 

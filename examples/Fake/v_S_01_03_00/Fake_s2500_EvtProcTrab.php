@@ -57,6 +57,7 @@ $std->infocccp->cnpjccp = '12345678901234';
 $std->cpftrab = '12345678901'; //obrigatório
 $std->nmtrab = 'Fulano da Silva'; //opcional
 $std->dtnascto = '1997-02-22'; //opcional
+$std->nmsoc = 'Fulana da Silva'; //opcional
 
 $std->infocontr[0] = new \stdClass(); //de 1 a 99
 $std->infocontr[0]->tpcontr = 1; //obrigatório
@@ -71,8 +72,26 @@ $std->infocontr[0]->codcateg = "101"; //opcional
 $std->infocontr[0]->dtinicio = '2022-11-05'; //opcional
 
 $std->infocontr[0]->infocompl = new \stdClass(); //opcional
+$std->infocontr[0]->infocompl->nmcargo = 'Analista de Sistemas'; //opcional
 $std->infocontr[0]->infocompl->codcbo = '123456'; //opcional
+$std->infocontr[0]->infocompl->nmfuncao = 'Coordenador de Projetos'; //opcional
+$std->infocontr[0]->infocompl->cbofuncao = '142105'; //opcional
 $std->infocontr[0]->infocompl->natatividade = 1; //opcional
+
+$std->infocontr[0]->infocompl->localtrabalho = new \stdClass(); //opcional
+$std->infocontr[0]->infocompl->localtrabalho->localtrabgeral = new \stdClass(); //opcional
+$std->infocontr[0]->infocompl->localtrabalho->localtrabgeral->tpinsc = 1; //1, 3 ou 4
+$std->infocontr[0]->infocompl->localtrabalho->localtrabgeral->nrinsc = '12345678000195';
+$std->infocontr[0]->infocompl->localtrabalho->localtrabgeral->desccomp = 'Sede'; //opcional
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom = new \stdClass(); //opcional
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom->tplograd = 'R'; //opcional
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom->dsclograd = 'Rua Teste';
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom->nrlograd = '10';
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom->complemento = 'Casa 2'; //opcional
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom->bairro = 'Centro'; //opcional
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom->cep = '01311200';
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom->codmunic = '3550308';
+$std->infocontr[0]->infocompl->localtrabalho->localtempdom->uf = 'SP';
 
 $std->infocontr[0]->infocompl->remuneracao[0] = new \stdClass(); //opcional 0 a 99
 $std->infocontr[0]->infocompl->remuneracao[0]->dtremun = '2022-12-15'; //Obrigatório

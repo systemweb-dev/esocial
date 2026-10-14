@@ -43,6 +43,7 @@ $std->percaliment = 10.00;
 $std->vralim = 600.23;
 $std->nrproctrab = "12345678901234567890";
 $std->novocpf = "12345678901";
+$std->indcpfdesvinc = 9; //Opcional (S-1.3, só aceita 9; exige novocpf)
 
 
 $std->verbasresc = new \stdClass();
