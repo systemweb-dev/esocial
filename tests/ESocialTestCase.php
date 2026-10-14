@@ -3,6 +3,7 @@
 namespace NFePHP\eSocial\Tests;
 
 use NFePHP\Common\Certificate;
+use NFePHP\eSocial\Common\FactoryId;
 use PHPUnit\Framework\TestCase;
 
 class ESocialTestCase extends TestCase
@@ -16,6 +17,9 @@ class ESocialTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Os Ids gerados ficam registrados no processo; cada teste começa sem nenhum.
+        FactoryId::reset();
 
         $this->fixturesPath = __DIR__.'/fixtures/';
         $contentpfx         = file_get_contents($this->fixturesPath."certs/expired_certificate.pfx");

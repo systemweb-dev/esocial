@@ -110,6 +110,18 @@ describe('envio de lote de eventos', function () {
         expect($event->getCertificate())->toBe($this->certificate)
             ->and(substr_count($request['body'], '</Signature>'))->toBe(1);
     });
+
+    it('envia no mesmo lote dois eventos iguais montados no mesmo processo, com Ids diferentes', function () {
+        $tools = toolsWithFakeSoap($this->configJson, $this->certificate);
+        $first = infoEmpregadorEvent($this->configJson, $this->certificate);
+        $second = infoEmpregadorEvent($this->configJson, $this->certificate);
+
+        $request = fakeSoapRequest($tools->enviarLoteEventos(Tools::EVT_INICIAIS, [$first, $second]));
+
+        expect($second->evtid)->not->toBe($first->evtid)
+            ->and($request['body'])->toContain("<evento Id=\"{$first->evtid}\">")
+            ->and($request['body'])->toContain("<evento Id=\"{$second->evtid}\">");
+    });
 });
 
 describe('envio de lote de XML assinados', function () {
