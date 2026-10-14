@@ -2,7 +2,7 @@
 titulo: SP3 atualizacoes do eSocial
 slug: 2026-10-14-sp3-atualizacoes-do-esocial
 criado: 2026-10-14
-estado: aprovado
+estado: concluido
 ---
 
 # SP3 — atualizações do eSocial
