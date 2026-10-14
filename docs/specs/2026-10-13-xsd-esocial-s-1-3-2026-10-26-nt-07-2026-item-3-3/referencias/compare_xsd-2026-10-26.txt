@@ -1,0 +1,62 @@
+evtAdmPrelim.xsd:
+  * /eSocial/evtAdmPrelim/infoRegPrelim/dtAdm: tipo xs:date -> TS_dt1890
+evtAdmissao.xsd:
+  * /eSocial/evtAdmissao/trabalhador/infoDeficiencia/infoCota: regra de validação alterada: Validação: Preenchimento obrigatório e exclusivo se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] e se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}
+  * /eSocial/evtAdmissao/vinculo/infoContrato/observacoes/observacao: tipo TS_observacao -> TS_observacao_trab
+  * /eSocial/evtAdmissao/vinculo/infoRegimeTrab/infoCeletista/dtAdm: tipo xs:date -> TS_dt1890
+  * /eSocial/evtAdmissao/vinculo/infoRegimeTrab/infoEstatutario/dtExercicio: tipo xs:date -> TS_dt1890
+evtAfastTemp.xsd:
+  * /eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/infoMesmoMtv: tipo TS_sim_nao -> (local)
+  * /eSocial/evtAfastTemp/infoAfastamento/iniAfastamento/infoMesmoMtv: valores +['N', 'S'] -[]
+evtAltCadastral.xsd:
+  * /eSocial/evtAltCadastral/alteracao/dadosTrabalhador/infoDeficiencia/infoCota: regra de validação alterada: Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200 com {tpRegTrab}(2200_vinculo_tpRegTrab) = [1], ativo em {dtAlteracao}(2205_al
+evtAltContratual.xsd:
+  * /eSocial/evtAltContratual/altContratual/vinculo/infoContrato/horContratual: tipo T_horContratual -> T_horContratual_2206
+  * /eSocial/evtAltContratual/altContratual/vinculo/infoContrato/observacoes/observacao: tipo TS_observacao -> TS_observacao_trab
+evtAnotJud.xsd:
+  + novo elemento /eSocial/evtAnotJud/infoAnotJud/cargo/nmCargo (min=0)
+evtCdBenAlt.xsd:
+  * /eSocial/evtCdBenAlt/infoBenAlteracao/dadosBeneficio/tpBeneficio: regra de validação alterada: Validação: Deve ser um código válido e existente na Tabela 25. Se {indSitBenef}(2410_infoBenInicio_indSitBenef) em S-2410 for igual a [1], não é permitido utilizar código do grupo 
+evtCdBenIn.xsd:
+  * /eSocial/evtCdBenIn/infoBenInicio/dadosBeneficio/tpBeneficio: regra de validação alterada: Validação: Deve ser um código válido e existente na Tabela 25. Se {indSitBenef}(2410_infoBenInicio_indSitBenef) = [1], não é permitido utilizar código do grupo [08] dessa tabela.
+  * /eSocial/evtCdBenIn/infoBenInicio/sucessaoBenef/cnpjOrgaoAnt: regra de validação alterada: Validação: Deve ser um CNPJ válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000. Além disso, d
+evtCdBenTerm.xsd:
+  + novo elemento /eSocial/evtCdBenTerm/infoBenTermino/indCPFDesvinc (min=0)
+evtCessao.xsd:
+  * /eSocial/evtCessao/infoCessao/iniCessao/cnpjCess: regra de validação alterada: Validação: Deve ser um CNPJ diferente do CNPJ do empregador/órgão público e diferente dos estabelecimentos informados através do evento S-1005, exceto se a natureza jurídica do dec
+evtDeslig.xsd:
+  + novo elemento /eSocial/evtDeslig/infoDeslig/mudancaCPF/indCPFDesvinc (min=0)
+  * /eSocial/evtDeslig/infoDeslig/dtDeslig: tipo xs:date -> TS_dt1890
+evtIrrfBenef.xsd:
+  (mudança só em documentação/formatação)
+evtProcTrab.xsd:
+  + novo elemento /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/CBOFuncao (min=0)
+  + novo elemento /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/localTrabalho (min=0)
+  + novo elemento /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/localTrabalho/localTempDom (min=0)
+  + novo elemento /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/localTrabalho/localTrabGeral (min=0)
+  + novo elemento /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/nmCargo (min=0)
+  + novo elemento /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/nmFuncao (min=0)
+  + novo elemento /eSocial/evtProcTrab/ideTrab/nmSoc (min=0)
+  * /eSocial/evtProcTrab/ideTrab/infoContr/indContr: regra de validação alterada: Validação: Deve ser igual a [N] se {infoContr/tpContr}(./tpContr) = [8]. Deve ser igual a [S] se {infoContr/tpContr}(2500_ideTrab_infoContr_tpContr) = [1, 2, 3, 4]. Além disso, som
+  * /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/codCBO: regra de validação alterada: Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for diferente de [901, 903, 904, 906]). Se informado, deve ser um código válido e existente na tabela de C
+  * /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/infoVinc/observacoes/observacao: tipo TS_observacao -> TS_observacao_trab
+  * /eSocial/evtProcTrab/ideTrab/infoContr/infoCompl/infoVinc/tpRegTrab: tipo TS_tpRegTrab -> TS_tpRegTrab_1_2_3
+evtRmnRPPS.xsd:
+  * /eSocial/evtRmnRPPS/ideTrabalhador/infoComplem/sucessaoVinc/cnpjOrgaoAnt: regra de validação alterada: Validação: Deve ser um CNPJ válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000. Além disso, d
+evtTSVInicio.xsd:
+  * /eSocial/evtTSVInicio/infoTSVInicio/dtInicio: tipo xs:date -> TS_dt1890
+  * /eSocial/evtTSVInicio/infoTSVInicio/infoComplementares/infoTrabCedido/cnpjCednt: regra de validação alterada: Validação: Deve ser um CNPJ diferente do CNPJ do empregador/órgão público e diferente dos estabelecimentos informados através do evento S-1005, exceto se a natureza jurídica do dec
+evtTSVTermino.xsd:
+  + novo elemento /eSocial/evtTSVTermino/infoTSVTermino/mudancaCPF/indCPFDesvinc (min=0)
+  * /eSocial/evtTSVTermino/infoTSVTermino/dtTerm: tipo xs:date -> TS_dt1890
+tipos.xsd:
+  * /dscJorn: tipo TS_texto_999 -> TS_dscJorn
+  * /horNoturno: tipo TS_sim_nao -> TS_horNoturno
+  * /horNoturno: regra de validação alterada: 
+  * /qtdHrsSem: tipo (local) -> TS_qtdHrsSem
+  * /qtdHrsSem: regra de validação alterada: Validação: Deve ser preenchida se {codCateg}(../codCateg) for diferente de [111]. Se informada, deve ser maior que 0 (zero).
+  * /tmpParc: regra de validação alterada: Validação: O código [1] só é válido se {codCateg}(../codCateg) = [104]. Os códigos [2, 3] não são válidos se {codCateg}(../codCateg) = [104].
+  * /tpJornada: tipo (local) -> TS_tpJornada
+  * /tpJornada: valores +[] -['2', '3', '4', '5', '6', '7', '9']
+
+17 arquivo(s) diferente(s) de 52
