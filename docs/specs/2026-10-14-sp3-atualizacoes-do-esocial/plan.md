@@ -1014,7 +1014,7 @@ Esperado: resumo do Pest sem `deprecated`/`failed`; `OK` no unittest (22 testes)
 
 **Depende de:** Tasks 1-6 commitadas no `master`
 
-- [ ] **Step 1: criar o branch e copiar o pacote**
+- [x] **Step 1: criar o branch e copiar o pacote**
 
 ```bash
 git switch master && git status --short    # vazio
@@ -1024,7 +1024,7 @@ cp $P/2026-11-23/x/*.xsd schemes/v_S_01_03_00/
 python3 .claude/skills/update-esocial/scripts/compare_xsd.py schemes/v_S_01_03_00 $P/2026-11-23/x | tail -1    # 0 arquivo(s) diferente(s)
 ```
 
-- [ ] **Step 2: escrever os testes que falham**
+- [x] **Step 2: escrever os testes que falham**
 
 Acrescentar em `tests/Unit/Factories/EvtInfoEmpregadorTest.php`:
 
@@ -1086,13 +1086,13 @@ it('recusa indOrgReemb fora de 1, 2 e 3', function () {
 })->throws(Exception::class, 'indorgreemb');
 ```
 
-- [ ] **Step 3: rodar e confirmar que falham**
+- [x] **Step 3: rodar e confirmar que falham**
 
 Rode: `php -d xdebug.mode=off vendor/bin/pest tests/Unit/Factories/EvtInfoEmpregadorTest.php tests/Unit/Factories/EvtPgtosTest.php`
 Esperado: "sem indOptRegEletron" FALHA (`[infocadastro.indoptregeletron] ... obrigatório`);
 "indOrgReemb 3" FALHA (pattern); "fora de 1, 2 e 3" PASSA.
 
-- [ ] **Step 4: montador do S-1000 (só no `toNodeS130`)**
+- [x] **Step 4: montador do S-1000 (só no `toNodeS130`)**
 
 ```bash
 python3 - <<'EOF'
@@ -1111,7 +1111,7 @@ open(p, 'w', encoding='utf-8').write(s[:k] + body.replace(old, new)); print('ok'
 EOF
 ```
 
-- [ ] **Step 5: JSON schemas**
+- [x] **Step 5: JSON schemas**
 
 Em `jsonSchemes/v_S_01_03_00/evtInfoEmpregador.schema`, substituir:
 
@@ -1143,7 +1143,7 @@ Em `jsonSchemes/v_S_01_03_00/evtPgtos.schema`, trocar a linha `"pattern": "^(1|2
                                     "pattern": "^(1|2|3)$"
 ```
 
-- [ ] **Step 6: exemplo, ESOCIAL-VERSION e CHANGELOG**
+- [x] **Step 6: exemplo, ESOCIAL-VERSION e CHANGELOG**
 
 No `examples/Fake/v_S_01_03_00/Fake_s1000_EvtInfoEmpregador.php`, acrescentar logo acima da linha
 `$std->infocadastro->indoptregeletron = 0;`:
@@ -1169,7 +1169,7 @@ Em `CHANGELOG.md`, no `### Added` de `## Unreleased`, acrescentar:
 - Apply the S-1.3 XSD package of 2026-11-23 (NT 07/2026 rev., item 3.4): S-1000 `indOptRegEletron` optional (do not send when `iniValid >= 2026-02`); S-1210 `indOrgReemb` accepts 3.
 ```
 
-- [ ] **Step 7: verificar o branch (restrição 4)**
+- [x] **Step 7: verificar o branch (restrição 4)**
 
 ```bash
 php -d xdebug.mode=off vendor/bin/pest tests/Unit/Factories/EvtInfoEmpregadorTest.php tests/Unit/Factories/EvtPgtosTest.php
@@ -1192,7 +1192,7 @@ Esperado: tudo verde, `40/40`, a linha do `xsd_package`. **Checkpoint**: commit 
 
 **Depende de:** Task 7 commitada
 
-- [ ] **Step 1: branch e pacote**
+- [x] **Step 1: branch e pacote**
 
 ```bash
 git switch xsd/2026-11-23 && git status --short    # vazio
@@ -1201,7 +1201,7 @@ cp $P/2026-12-14/x/*.xsd schemes/v_S_01_03_00/
 python3 .claude/skills/update-esocial/scripts/compare_xsd.py schemes/v_S_01_03_00 $P/2026-12-14/x | tail -1    # 0 arquivo(s) diferente(s)
 ```
 
-- [ ] **Step 2: escrever os testes que falham**
+- [x] **Step 2: escrever os testes que falham**
 
 Acrescentar em `tests/Unit/Factories/EvtInfoEmpregadorTest.php`:
 
@@ -1232,12 +1232,12 @@ it('recusa indSiafi diferente de S', function () {
 })->throws(Exception::class, 'infocadastro.indsiafi');
 ```
 
-- [ ] **Step 3: rodar e confirmar que falham**
+- [x] **Step 3: rodar e confirmar que falham**
 
 Rode: `php -d xdebug.mode=off vendor/bin/pest tests/Unit/Factories/EvtInfoEmpregadorTest.php`
 Esperado: "emite indSiafi" e "recusa indSiafi" FALHAM; "não emite" PASSA.
 
-- [ ] **Step 4: montador e schema**
+- [x] **Step 4: montador e schema**
 
 Em `src/Factories/Traits/TraitS1000.php`, substituir:
 
@@ -1288,7 +1288,7 @@ por:
                 }
 ```
 
-- [ ] **Step 5: ESOCIAL-VERSION e CHANGELOG**
+- [x] **Step 5: ESOCIAL-VERSION e CHANGELOG**
 
 ```bash
 python3 - <<'EOF'
@@ -1307,7 +1307,7 @@ Em `CHANGELOG.md`, no `### Added` de `## Unreleased`, acrescentar:
 - Apply the S-1.3 XSD package of 2026-12-14 (NT 07/2026 rev., item 3.5): S-1000 optional `indSiafi` (`S`).
 ```
 
-- [ ] **Step 6: verificar o branch (restrição 4)**
+- [x] **Step 6: verificar o branch (restrição 4)**
 
 ```bash
 composer test 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep 'Tests:'
@@ -1329,7 +1329,7 @@ Esperado: verde, `40/40`, a linha, e o commit do branch anterior na lista. **Che
 
 **Depende de:** Task 8 commitada
 
-- [ ] **Step 1: branch e pacote**
+- [x] **Step 1: branch e pacote**
 
 ```bash
 git switch xsd/2026-12-14 && git status --short    # vazio
@@ -1338,7 +1338,7 @@ cp $P/2027-01-18/x/*.xsd schemes/v_S_01_03_00/
 git status --short schemes    # só evtAnotJud.xsd
 ```
 
-- [ ] **Step 2: ESOCIAL-VERSION e CHANGELOG**
+- [x] **Step 2: ESOCIAL-VERSION e CHANGELOG**
 
 ```bash
 python3 - <<'EOF'
@@ -1356,7 +1356,7 @@ Em `CHANGELOG.md`, no `### Added` de `## Unreleased`, acrescentar:
 - Apply the S-1.3 XSD package of 2027-01-18 (NT 07/2026 rev., item 3.6): S-8200 gets `observacoes` (the library does not build S-8200; only the XSD changes).
 ```
 
-- [ ] **Step 3: verificar o branch (restrição 4)**
+- [x] **Step 3: verificar o branch (restrição 4)**
 
 ```bash
 composer test 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep 'Tests:'
@@ -1389,3 +1389,10 @@ Push dos três branches só com o "sim" do usuário (`git push origin xsd/2026-1
   SKILL.md (Task 6) avisa para trocar a versão esperada no `SystemMessagesTest`.
 - **2026-10-14 (Task 6)** — o `CHANGELOG.md` é em inglês e já tinha `### Added` no Unreleased: os
   itens entraram nele, em inglês (Tasks 7-9 também).
+- **2026-10-14 (Task 8)** — o `compare_xsd.py` novo mostrou no pacote 2026-12-14 o que o spec não
+  listava: S-1010 `codIncCP` com 23, 24, 27 e 28 (salário-paternidade). O JSON schema já aceitava
+  (`^[0-9]{2}$`); entrou `tests/Unit/Factories/EvtTabRubricaTest.php` (vermelho com o XSD
+  anterior, verde com o novo) num commit a mais no `xsd/2026-12-14`. Os outros (S-5001 `tpValor`
+  33, S-5011 `vrSalPat`) são retornos, que a lib não monta.
+- **2026-10-14 (Tasks 7-9)** — as marcações do plano foram feitas no fim, no `master`, para o
+  `plan.md` não divergir entre os branches.
