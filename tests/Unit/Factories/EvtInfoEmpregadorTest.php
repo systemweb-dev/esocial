@@ -78,3 +78,28 @@ it('aceita o S-1000 sem indOptRegEletron e não emite a tag', function () {
 
     expect($document->getElementsByTagName('indOptRegEletron')->length)->toBe(0);
 });
+
+it('emite indSiafi logo depois de indPertIRRF (pacote 2026-12-14)', function () {
+    $std = infoEmpregadorCadastro(['indpertirrf' => 'S', 'indsiafi' => 'S']);
+    $event = new EvtInfoEmpregador($this->configJson, $std, $this->certificate, '2026-01-05 10:00:00');
+
+    $document = eventDocument($event);
+
+    $names = childElementNames($document->getElementsByTagName('infoCadastro')->item(0));
+    expect(array_slice($names, -2))->toBe(['indPertIRRF', 'indSiafi']);
+});
+
+it('não emite indSiafi quando ele não é informado', function () {
+    $std = infoEmpregadorCadastro([]);
+    $event = new EvtInfoEmpregador($this->configJson, $std, $this->certificate, '2026-01-05 10:00:00');
+
+    $document = eventDocument($event);
+
+    expect($document->getElementsByTagName('indSiafi')->length)->toBe(0);
+});
+
+it('recusa indSiafi diferente de S', function () {
+    $std = infoEmpregadorCadastro(['indsiafi' => 'N']);
+
+    new EvtInfoEmpregador($this->configJson, $std, $this->certificate, '2026-01-05 10:00:00');
+})->throws(Exception::class, 'infocadastro.indsiafi');
