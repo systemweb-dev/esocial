@@ -24,39 +24,23 @@ class Event
      */
     public static $available = [
         'evtadmissao' => Factories\EvtAdmissao::class,
-        'evtcs' => Factories\EvtCS::class,
         'evtcessao' => Factories\EvtCessao::class,
         'evtpgtos' => Factories\EvtPgtos::class,
         'evtrmnrpps' => Factories\EvtRmnRPPS::class,
         'evtadmprelim' => Factories\EvtAdmPrelim::class,
         'evtdeslig' => Factories\EvtDeslig::class,
-        'evttabambiente' => Factories\EvtTabAmbiente::class,
-        'evttabequipamento' => Factories\EvtTabEquipamento::class,
         'evtafasttemp' => Factories\EvtAfastTemp::class,
         'evtexclusao' => Factories\EvtExclusao::class,
         'evtexcproctrab' => Factories\EvtExcProcTrab::class,
-        'evttabcargo' => Factories\EvtTabCargo::class,
         'evtaltcadastral' => Factories\EvtAltCadastral::class,
         'evtexprisco' => Factories\EvtExpRisco::class,
-        'evttabcarreira' => Factories\EvtTabCarreira::class,
         'evtaltcontratual' => Factories\EvtAltContratual::class,
         'evtfechaevper' => Factories\EvtFechaEvPer::class,
         'evttabestab' => Factories\EvtTabEstab::class,
-        'evtaqprod' => Factories\EvtAqProd::class,
         'evtinfocomplper' => Factories\EvtInfoComplPer::class,
-        'evttabfuncao' => Factories\EvtTabFuncao::class,
-        'evtavprevio' => Factories\EvtAvPrevio::class,
         'evtinfoempregador' => Factories\EvtInfoEmpregador::class,
-        'evttabhortur' => Factories\EvtTabHorTur::class,
-        'evtbasestrab' => Factories\EvtBasesTrab::class,
-        'evtinsapo' => Factories\EvtInsApo::class,
-        'evttreicap' => Factories\EvtTreiCap::class,
-        'evtconvinterm' => Factories\EvtConvInterm::class,
         'evttablotacao' => Factories\EvtTabLotacao::class,
         'evtbenprrp' => Factories\EvtBenPrRP::class,
-        'evtirrfbenef' => Factories\EvtIrrfBenef::class,
-        'evttaboperport' => Factories\EvtTabOperPort::class,
-        'evtirrf' => Factories\EvtIrrf::class,
         'evttabprocesso' => Factories\EvtTabProcesso::class,
         'evtcat' => Factories\EvtCAT::class,
         'evtmonit' => Factories\EvtMonit::class,
@@ -74,14 +58,8 @@ class Event
         'evtcontratavnp' => Factories\EvtContratAvNP::class,
         'evtreintegr' => Factories\EvtReintegr::class,
         'evttsvtermino' => Factories\EvtTSVTermino::class,
-        'evtcontrsindpatr' => Factories\EvtContrSindPatr::class,
         'evtremun' => Factories\EvtRemun::class,
-        'evttotconting' => Factories\EvtTotConting::class,
         'evttoxic' => Factories\EvtToxic::class,
-        'evtfgts' => Factories\EvtFGTS::class,
-        'evtbasesfgts' => Factories\EvtBasesFGTS::class,
-        'evtanotjud' => Factories\EvtAnotJud::class,
-        'evtbaixa' => Factories\EvtBaixa::class,
         'evtproctrab' => Factories\EvtProcTrab::class,
         'evtcontproc' => Factories\EvtContProc::class,
         'evtconsolidcontproc' => Factories\EvtConsolidContProc::class,
@@ -94,37 +72,22 @@ class Event
      */
     public static $aliases = [
         's2200' => 'evtadmissao',
-        's5011' => 'evtcs',
         's2231' => 'evtcessao',
         's1202' => 'evtrmnrpps',
         's2190' => 'evtadmprelim',
         's2299' => 'evtdeslig',
-        's1060' => 'evttabambiente',
-        's1065' => 'evttabequipamento',
         's2230' => 'evtafasttemp',
         's3000' => 'evtexclusao',
-        's1030' => 'evttabcargo',
+        's3500' => 'evtexcproctrab',
         's2205' => 'evtaltcadastral',
         's2240' => 'evtexprisco',
-        's1035' => 'evttabcarreira',
         's2206' => 'evtaltcontratual',
         's1299' => 'evtfechaevper',
         's1005' => 'evttabestab',
-        's1250' => 'evtaqprod',
         's1280' => 'evtinfocomplper',
-        's1040' => 'evttabfuncao',
-        's2250' => 'evtavprevio',
         's1000' => 'evtinfoempregador',
-        's1050' => 'evttabhortur',
-        's5001' => 'evtbasestrab',
-        's2241' => 'evtinsapo',
-        's2245' => 'evttreicap',
-        's2260' => 'evtconvinterm',
         's1020' => 'evttablotacao',
         's1207' => 'evtbenprrp',
-        's5002' => 'evtirrfbenef',
-        's1080' => 'evttaboperport',
-        's5012' => 'evtirrf',
         's1070' => 'evttabprocesso',
         's2210' => 'evtcat',
         's2220' => 'evtmonit',
@@ -139,13 +102,7 @@ class Event
         's1270' => 'evtcontratavnp',
         's2298' => 'evtreintegr',
         's2399' => 'evttsvtermino',
-        's1300' => 'evtcontrsindpatr',
         's1200' => 'evtremun',
-        's1295' => 'evttotconting',
-        's5003' => 'evtbasesfgts',
-        's5013' => 'evtfgts',
-        's8200' => 'evtanotjud',
-        's8299' => 'evtbaixa',
         's2405' => 'evtcdbenefalt',
         's2410' => 'evtcdbenin',
         's2416' => 'evtcdbenalt',
@@ -154,6 +111,50 @@ class Event
         's2500' => 'evtproctrab',
         's2501' => 'evtcontproc',
         's2555' => 'evtconsolidcontproc',
+    ];
+
+    /**
+     * Eventos que a biblioteca não monta: código => [nome do evento no XSD, tipo].
+     * tipo: retorno (o eSocial devolve ao empregador), extinto (não existe no S-1.3),
+     * judiciario (enviado só pelo Poder Judiciário, procEmi 8).
+     *
+     * @var array
+     */
+    public static $unavailable = [
+        'S-1030' => ['evtTabCargo', 'extinto'],
+        'S-1035' => ['evtTabCarreira', 'extinto'],
+        'S-1040' => ['evtTabFuncao', 'extinto'],
+        'S-1050' => ['evtTabHorTur', 'extinto'],
+        'S-1060' => ['evtTabAmbiente', 'extinto'],
+        'S-1065' => ['evtTabEquipamento', 'extinto'],
+        'S-1080' => ['evtTabOperPort', 'extinto'],
+        'S-1250' => ['evtAqProd', 'extinto'],
+        'S-1295' => ['evtTotConting', 'extinto'],
+        'S-1300' => ['evtContrSindPatr', 'extinto'],
+        'S-2241' => ['evtInsApo', 'extinto'],
+        'S-2245' => ['evtTreiCap', 'extinto'],
+        'S-2250' => ['evtAvPrevio', 'extinto'],
+        'S-2260' => ['evtConvInterm', 'extinto'],
+        'S-5001' => ['evtBasesTrab', 'retorno'],
+        'S-5002' => ['evtIrrfBenef', 'retorno'],
+        'S-5003' => ['evtBasesFGTS', 'retorno'],
+        'S-5011' => ['evtCS', 'retorno'],
+        'S-5012' => ['evtIrrf', 'retorno'],
+        'S-5013' => ['evtFGTS', 'retorno'],
+        'S-5501' => ['evtTribProcTrab', 'retorno'],
+        'S-5503' => ['evtFGTSProcTrab', 'retorno'],
+        'S-8200' => ['evtAnotJud', 'judiciario'],
+        'S-8299' => ['evtBaixa', 'judiciario'],
+    ];
+
+    /**
+     * @var array tipo => texto do motivo
+     */
+    protected static $unavailableReasons = [
+        'retorno' => 'é um evento de retorno do eSocial: o empregador não envia; '
+            . 'leia o totalizador no retorno do processamento do lote.',
+        'extinto' => 'foi extinto e não existe no leiaute S-1.3.',
+        'judiciario' => 'é enviado só pelo Poder Judiciário (procEmi 8): o empregador não envia.',
     ];
 
     public static $codes = [
@@ -213,6 +214,15 @@ class Event
     public static function __callStatic($name, $arguments)
     {
         $name = str_replace('-', '', strtolower($name));
+        foreach (self::$unavailable as $code => $info) {
+            list($evtName, $kind) = $info;
+            if ($name === strtolower($evtName) || $name === 's' . str_replace('S-', '', $code)) {
+                throw EventsException::wrongArgument(
+                    1003,
+                    "$code ($evtName) " . self::$unavailableReasons[$kind]
+                );
+            }
+        }
         $realname = $name;
         if (substr($name, 0, 1) == 's') {
             if (!array_key_exists($name, self::$aliases)) {

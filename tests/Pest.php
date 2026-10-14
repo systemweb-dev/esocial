@@ -84,3 +84,18 @@ function configWith(string $configJson, array $changes): string
 {
     return json_encode(array_replace_recursive(json_decode($configJson, true), $changes));
 }
+
+/**
+ * Executa o Act e devolve a exceção lançada (ou null). Para quando a mensagem esperada depende
+ * do dataset e não cabe em ->throws().
+ */
+function caughtException(callable $act): ?Throwable
+{
+    try {
+        $act();
+    } catch (Throwable $e) {
+        return $e;
+    }
+
+    return null;
+}
