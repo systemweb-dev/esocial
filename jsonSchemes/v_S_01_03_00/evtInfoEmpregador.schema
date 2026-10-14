@@ -87,6 +87,11 @@
                     "required": false,
                     "type": ["string","null"],
                     "pattern": "^(S)$"
+                },
+                "indpertirrf": {
+                    "required": false,
+                    "type": ["string","null"],
+                    "pattern": "^(S)$"
                 }
             }
         },

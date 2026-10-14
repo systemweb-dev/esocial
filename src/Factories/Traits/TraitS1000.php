@@ -756,6 +756,12 @@ trait TraitS1000
                 !empty($cad->indtribfolhapispasep) ? $cad->indtribfolhapispasep : null,
                 false
             );
+            $this->dom->addChild(
+                $infoCadastro,
+                "indPertIRRF",
+                $cad->indpertirrf ?? null,
+                false
+            );
         }
         if (isset($this->std->dadosisencao) && !empty($infoCadastro)) {
             $cad  = $this->std->dadosisencao;
