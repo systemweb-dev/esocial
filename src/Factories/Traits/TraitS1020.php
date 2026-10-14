@@ -151,6 +151,22 @@ trait TraitS1020
                 );
                 $dados->appendChild($parcial);
             }
+            if (!empty($da->dadosopport)) {
+                $opPort = $this->dom->createElement("dadosOpPort");
+                $this->dom->addChild(
+                    $opPort,
+                    "aliqRat",
+                    $da->dadosopport->aliqrat,
+                    true
+                );
+                $this->dom->addChild(
+                    $opPort,
+                    "fap",
+                    $da->dadosopport->fap,
+                    true
+                );
+                $dados->appendChild($opPort);
+            }
         }
 
         if (!empty($this->std->novavalidade)) {

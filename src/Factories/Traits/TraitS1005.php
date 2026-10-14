@@ -285,14 +285,12 @@ trait TraitS1005
             $this->std->inivalid,
             true
         );
-        if ($this->std->modo !== 'INC') {
-            $this->dom->addChild(
-                $ideEstab,
-                "fimValid",
-                !empty($this->std->fimvalid) ? $this->std->fimvalid : null,
-                false
-            );
-        }
+        $this->dom->addChild(
+            $ideEstab,
+            "fimValid",
+            !empty($this->std->fimvalid) ? $this->std->fimvalid : null,
+            false
+        );
 
         if ($this->std->modo == 'INC') {
             $node = $this->dom->createElement("inclusao");

@@ -202,6 +202,21 @@ trait TraitS2501
             $idetrab = $this->dom->createElement("ideTrab");
             $this->dom->addAttribute($idetrab, 'cpfTrab', $ide->cpftrab);
             if (!empty($ide->calctrib)) {
+                foreach ($ide->calctrib as $calc) {
+                    $calctrib = $this->dom->createElement("calcTrib");
+                    $this->dom->addAttribute($calctrib, 'perRef', $calc->perref);
+                    $this->dom->addAttribute($calctrib, 'vrBcCpMensal', $calc->vrbccpmensal);
+                    $this->dom->addAttribute($calctrib, 'vrBcCp13', $calc->vrbccp13);
+                    if (!empty($calc->infocrcontrib)) {
+                        foreach ($calc->infocrcontrib as $contrib) {
+                            $infocrcontrib = $this->dom->createElement("infoCRContrib");
+                            $this->dom->addAttribute($infocrcontrib, 'tpCR', $contrib->tpcr);
+                            $this->dom->addAttribute($infocrcontrib, 'vrCR', $contrib->vrcr);
+                            $calctrib->appendChild($infocrcontrib);
+                        }
+                    }
+                    $idetrab->appendChild($calctrib);
+                }
             }
             if (!empty($ide->infocrirrf)) {
                 foreach ($ide->infocrirrf as $cr) {
@@ -327,8 +342,8 @@ trait TraitS2501
                 }
                 $idetrab->appendChild($infoircomplem);
             }
+            $this->node->appendChild($idetrab);
         }
-        $this->node->appendChild($idetrab);
         //finalização do xml
         $this->eSocial->appendChild($this->node);
         //$this->xml = $this->dom->saveXML($this->eSocial);

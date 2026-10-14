@@ -1798,7 +1798,7 @@ trait TraitS1200
                 $this->dom->addChild(
                     $sucessaoVinc,
                     "observacao",
-                    !empty($ic->observacao) ? $ic->observacao : null,
+                    $ic->sucessaovinc->observacao ?? null,
                     false
                 );
                 $infoComplem->appendChild($sucessaoVinc);
