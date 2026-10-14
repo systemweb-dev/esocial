@@ -567,6 +567,7 @@ class Tools extends ToolsBase
         if (empty($eventos)) {
             return '';
         }
+        $grupo = $this->normalizeGrupo($grupo);
         $xml  = "";
         $nEvt = count($eventos);
         if ($nEvt > 50) {
@@ -653,6 +654,7 @@ class Tools extends ToolsBase
         if (empty($eventos)) {
             return '';
         }
+        $grupo = $this->normalizeGrupo($grupo);
         $nEvt = count($eventos);
         if ($nEvt > 50) {
             throw new InvalidArgumentException(
@@ -669,6 +671,11 @@ class Tools extends ToolsBase
                     'Falha na localização do ID do evento.'
                 );
             }
+            if (empty($resp['grupo'])) {
+                throw new \RuntimeException(
+                    "O evento {$resp['codigo']} não pode ser enviado em lote pelo empregador."
+                );
+            }
             if (empty($grp)) {
                 $grp = $resp['grupo'];
             }
@@ -677,7 +684,7 @@ class Tools extends ToolsBase
                     . 'pertencentes ao mesmo grupo');
             }
             if ($grp !== $grupo) {
-                throw new \RuntimeException('O grupo correto deve ser declarado e não pode diferir'
+                throw new \RuntimeException('O grupo correto deve ser declarado e não pode diferir '
                     . 'do grupo dos eventos');
             }
             $id = $resp['id'];
@@ -740,6 +747,25 @@ class Tools extends ToolsBase
     }
 
     /**
+     * Aceita o grupo como int ou texto numérico e devolve o int (1, 2 ou 3).
+     * @param int|string $grupo
+     * @return int
+     * @throws InvalidArgumentException
+     */
+    protected function normalizeGrupo($grupo)
+    {
+        if ((is_int($grupo) || (is_string($grupo) && ctype_digit($grupo)))
+            && isset($this->grupos[(int) $grupo])
+        ) {
+            return (int) $grupo;
+        }
+        $shown = is_scalar($grupo) ? var_export($grupo, true) : gettype($grupo);
+        throw new InvalidArgumentException(
+            "Grupo inválido [$shown]: use 1 (tabelas), 2 (não periódicos) ou 3 (periódicos)."
+        );
+    }
+
+    /**
      * Verify the availability of a digital certificate.
      * If available, place it where it is needed
      * @param  FactoryInterface $evento
@@ -797,6 +823,7 @@ class Tools extends ToolsBase
         $keys = array_keys($possibles);
         $id = null;
         $grupo = null;
+        $codigo = null;
         foreach ($keys as $tagname) {
             if (!empty($dom->getElementsByTagName($tagname)->item(0))) {
                 $tag = $dom->getElementsByTagName($tagname)->item(0);
@@ -804,11 +831,11 @@ class Tools extends ToolsBase
                     continue;
                 }
                 $id = $tag->getAttribute('Id');
-                $code = $possibles[$tagname];
-                $grupo = $this->groupbycode[$code];
+                $codigo = $possibles[$tagname];
+                $grupo = $this->groupbycode[$codigo] ?? null;
                 break;
             }
         }
-        return ['id' => $id, 'grupo' => $grupo];
+        return ['id' => $id, 'grupo' => $grupo, 'codigo' => $codigo];
     }
 }
