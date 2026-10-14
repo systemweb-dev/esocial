@@ -53,3 +53,22 @@ usuário: atualize `ESOCIAL-VERSION.json` (`xsd_package`, `technical_note`, `ups
 ## 8. Avisar o enviaesocial
 Lembre de rodar `composer update systemweb-dev/esocial` na api do enviaesocial e reexecutar, na
 Produção Restrita, os cenários de `enviaesocial/docs/esocial-tests` dos eventos afetados.
+
+## 9. Mensagens do Sistema (versão nova)
+Baixe o PDF numa pasta temporária **vazia** e rode
+`python3 .claude/skills/update-esocial/scripts/extract_mensagens.py <pdf> <versao> <url-do-pdf>`.
+Confira o diff de `data/mensagens-sistema.json` (mensagens novas, removidas, ações alteradas),
+rode `python3 -m unittest discover -s .claude/skills/update-esocial/scripts -p 'test_*.py'` e o
+teste `tests/Unit/SystemMessagesTest.php` (troque nele a versão esperada em "informa a versão do
+catálogo" e confira os textos fixos do MS0191/MS0266), e atualize `system_messages` no
+`ESOCIAL-VERSION.json`.
+
+## 10. Pacotes prontos em branch
+Pacote preparado antes da data fica num branch `xsd/<data>` e em `pending_packages` do
+`ESOCIAL-VERSION.json`. Na data de `merge_on`: `check.py` e `compare_xsd.py` contra o zip do dia
+(o gov.br pode republicar), merge do branch no `master`, suíte e `validate.php`, push com ok, e
+aviso ao enviaesocial.
+
+O `compare_xsd.py` nomeia o caminho pelo tipo (`#T_infoCadastro/indOptRegEletron`). Tipo
+renomeado aparece como todos os filhos removidos e novos (`/campo: tipo T_a -> T_b` denuncia):
+nesse caso compare os filhos à mão.

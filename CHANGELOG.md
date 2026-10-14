@@ -10,6 +10,8 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - Apply the S-1.3 XSD package of 2026-10-26 (NT 07/2026 rev. 24/09/2026, item 3.3).
 - S-2500: `nmSoc`, `nmCargo`, `nmFuncao`, `CBOFuncao` and `localTrabalho` (`localTrabGeral`, `localTempDom`) in the S-1.3 builder and JSON schema; `tpRegTrab` accepts 3.
 - S-2299, S-2399 and S-2420: optional `indCPFDesvinc` (only value 9) in the S-1.3 builder and JSON schema.
+- `Common\SystemMessages`: official catalog of the eSocial System Messages v2.5 (`data/mensagens-sistema.json`), with text and suggested actions by code (`get(191)`, `get('MS0191')`, suffixed variants).
+- S-1000 (S-1.3): optional `indPertIRRF` (`S`), already in the XSD and missing from the builder.
 
 ### Fixed
 - S-1005: emit `fimValid` in `inclusao/ideEstab` too (allowed by `T_ideEstab` in every S-1.x layout).

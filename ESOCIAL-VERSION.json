@@ -5,6 +5,7 @@
     "technical_note": "Nota Técnica do S-1.3 até a qual o fork está atualizado (ex.: 07/2026). O check.py compara com a mais recente listada no gov.br.",
     "communication": "Versão do Pacote de Comunicação (XSD/WSDL de envio e consulta de lotes) usada em schemes/comunicacao.",
     "system_messages": "Versão das 'Mensagens do Sistema' (catálogo oficial de códigos de erro do governo) já revisada; null = nunca revisada.",
+    "pending_packages": "Pacotes de XSD já preparados e testados num branch xsd/<data>, com a data de merge no master (abertura da Produção Restrita, ou a produção quando não há Restrita). O check.py mostra o branch pronto; no branch de cada pacote o item sai da lista.",
     "upstream_reviewed": "Último commit do nfephp-org/sped-esocial (branch master) já consultado. É só referência: o check.py lista os commits posteriores como informação, sem contar como novidade; o que vale é o eSocial (gov.br).",
     "updated_at": "Data da última atualização deste arquivo (AAAA-MM-DD), feita pela skill update-esocial ao aplicar algo."
   },
@@ -12,7 +13,12 @@
   "xsd_package": "2026-10-26",
   "technical_note": "07/2026",
   "communication": "1.6.0-Alfa",
-  "system_messages": null,
+  "system_messages": "2.5",
+  "pending_packages": [
+    {"xsd_package": "2026-11-23", "branch": "xsd/2026-11-23", "merge_on": "2026-11-09"},
+    {"xsd_package": "2026-12-14", "branch": "xsd/2026-12-14", "merge_on": "2026-12-07"},
+    {"xsd_package": "2027-01-18", "branch": "xsd/2027-01-18", "merge_on": "2027-01-18"}
+  ],
   "upstream_reviewed": "07fa48b9f806a78dc3da8a625d4b718305694ac0",
   "updated_at": "2026-10-14"
 }
