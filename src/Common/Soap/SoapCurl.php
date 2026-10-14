@@ -59,15 +59,8 @@ class SoapCurl extends SoapBase implements SoapInterface
             curl_setopt($oCurl, CURLOPT_CONNECTTIMEOUT, $this->soaptimeout);
             curl_setopt($oCurl, CURLOPT_TIMEOUT, $this->soaptimeout + 20);
             curl_setopt($oCurl, CURLOPT_HEADER, 1);
-            curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt_array($oCurl, $this->securityOptions());
             curl_setopt($oCurl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-            if (! $this->disablesec) {
-                curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, 2);
-                if (is_file($this->casefaz ?? '')) {
-                    curl_setopt($oCurl, CURLOPT_CAINFO, $this->casefaz);
-                }
-            }
             curl_setopt($oCurl, CURLOPT_SSLVERSION, $this->soapprotocol);
             $this->setClientCertificate($oCurl);
             curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true);
@@ -110,6 +103,27 @@ class SoapCurl extends SoapBase implements SoapInterface
         }
         return $this->responseBody;
     }
+    /**
+     * Opções de verificação TLS do servidor aplicadas em send() e wsdl().
+     * Padrão: verifica a cadeia (store do sistema) e o nome do host.
+     * loadCA() troca o store pelo bundle informado; disableSecurity(true) desliga a verificação
+     * (inseguro: só para ambiente controlado, como proxy que intercepta TLS).
+     *
+     * @return array
+     */
+    public function securityOptions()
+    {
+        if ($this->disablesec) {
+            return [CURLOPT_SSL_VERIFYPEER => false, CURLOPT_SSL_VERIFYHOST => 0];
+        }
+        $options = [CURLOPT_SSL_VERIFYPEER => true, CURLOPT_SSL_VERIFYHOST => 2];
+        if (!empty($this->casefaz)) {
+            $options[CURLOPT_CAINFO] = $this->casefaz;
+        }
+
+        return $options;
+    }
+
     /**
      * Passa o certificado e a chave privada ao cURL direto da memória.
      * Não grava arquivo temporário: a chave privada nunca toca o disco.
@@ -179,8 +193,7 @@ class SoapCurl extends SoapBase implements SoapInterface
         curl_setopt($oCurl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
         curl_setopt($oCurl, CURLOPT_CONNECTTIMEOUT, $this->soaptimeout);
         curl_setopt($oCurl, CURLOPT_TIMEOUT, $this->soaptimeout + 20);
-        curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt_array($oCurl, $this->securityOptions());
         curl_setopt($oCurl, CURLOPT_SSLVERSION, $this->soapprotocol);
         $this->setClientCertificate($oCurl);
         curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, true);

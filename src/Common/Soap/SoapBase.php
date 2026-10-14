@@ -269,15 +269,20 @@ abstract class SoapBase implements SoapInterface
         return $this->disableCertValidation;
     }
     /**
-     * Load path to CA and enable to use on SOAP
+     * Usa o bundle de CAs informado para verificar o servidor.
+     * Atenção: o arquivo SUBSTITUI o store de CAs do sistema (CURLOPT_CAINFO), não soma a ele.
+     * Os webservices do eSocial usam a raiz pública GlobalSign Root R46, que já está no store
+     * do sistema; não é preciso chamar este método para eles.
      *
      * @param string $capath
+     * @throws \InvalidArgumentException se o arquivo não existir
      */
     public function loadCA($capath)
     {
-        if (is_file($capath)) {
-            $this->casefaz = $capath;
+        if (!is_file($capath)) {
+            throw new \InvalidArgumentException("Bundle de CAs não encontrado: $capath");
         }
+        $this->casefaz = $capath;
     }
     /**
      * Set option to encript private key before save in filesystem

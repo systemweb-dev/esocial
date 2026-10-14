@@ -53,7 +53,7 @@
         }
     },
     "scripts": {
-        "test": "@php -d xdebug.mode=off vendor/bin/pest",
+        "test": "@php -d xdebug.mode=off vendor/bin/pest --exclude-group=network",
         "phpcbf": "vendor/bin/phpcbf --standard=psr2 src/",
         "phpcs": "vendor/bin/phpcs --standard=psr2 src/",
         "phpstan": "vendor/bin/phpstan analyse src/ --level 7"
