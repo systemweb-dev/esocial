@@ -11,7 +11,7 @@
   "layout": "S-1.3",
   "xsd_package": "2026-10-26",
   "technical_note": "07/2026",
-  "communication": "1.5.0",
+  "communication": "1.6.0-Alfa",
   "system_messages": null,
   "upstream_reviewed": "07fa48b9f806a78dc3da8a625d4b718305694ac0",
   "updated_at": "2026-10-13"

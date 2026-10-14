@@ -1,45 +1,13 @@
 <?php
 
-use NFePHP\eSocial\Common\Soap\SoapFake;
 use NFePHP\eSocial\Event;
 use NFePHP\eSocial\Tools;
 
 /*
  * O SoapFake não acessa a rede: devolve em JSON a url, a action, os cabeçalhos e o envelope SOAP
- * que seriam enviados. Antes de enviar, o Tools valida a requisição no XSD de comunicação 1.5.0.
+ * que seriam enviados. Antes de enviar, o Tools valida a requisição no XSD de comunicação do
+ * serviceVersion do config (1.6.0 nos testes).
  */
-
-function toolsWithFakeSoap(string $configJson, $certificate): Tools
-{
-    $tools = new Tools($configJson, $certificate);
-    $tools->loadSoapClass(new SoapFake());
-
-    return $tools;
-}
-
-function fakeSoapRequest(string $response): array
-{
-    return json_decode($response, true);
-}
-
-function infoEmpregadorEvent(string $configJson, $certificate = null)
-{
-    $std = json_decode(json_encode([
-        'sequencial' => 1,
-        'modo' => 'INC',
-        'ideperiodo' => ['inivalid' => '2017-01'],
-        'infocadastro' => [
-            'classtrib' => '01',
-            'indcoop' => 0,
-            'indconstr' => 0,
-            'inddesfolha' => 0,
-            'indporte' => 'S',
-            'indoptregeletron' => 1,
-        ],
-    ]));
-
-    return Event::evtInfoEmpregador($configJson, $std, $certificate, '2017-08-03 10:37:00');
-}
 
 function cdBenTermEvent(string $configJson, $certificate)
 {
