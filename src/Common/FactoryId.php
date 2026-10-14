@@ -47,7 +47,14 @@ class FactoryId
             . $tpInsc
             . str_pad($nrInsc, 14, '0', STR_PAD_RIGHT)
             . $date->format('YmdHis');
-        $sequential = empty($sequential) ? random_int(1, 99999) : (int) $sequential;
+        if (empty($sequential)) {
+            $sequential = random_int(1, 99999);
+        } elseif (!ctype_digit((string) $sequential) || (int) $sequential > 99999) {
+            throw new \InvalidArgumentException(
+                "Sequencial inválido [$sequential]: use um inteiro de 1 a 99999."
+            );
+        }
+        $sequential = (int) $sequential;
         $sequential = self::reserve($base, $sequential);
 
         return $base . str_pad($sequential, 5, '0', STR_PAD_LEFT);

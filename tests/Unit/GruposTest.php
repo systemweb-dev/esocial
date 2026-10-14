@@ -79,3 +79,9 @@ it('explica quando o grupo declarado difere do grupo do evento', function () {
 
     $tools->enviarLoteXmlEventos(2, [$xml]);
 })->throws(RuntimeException::class, 'não pode diferir do grupo dos eventos');
+
+it('chama o grupo 1 de eventos de tabelas', function () {
+    $group = Tools::EVT_TABELAS;
+
+    expect($group)->toBe(1)->and(Tools::EVT_INICIAIS)->toBe($group);
+});

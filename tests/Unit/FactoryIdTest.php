@@ -74,3 +74,17 @@ it('esquece os Ids gerados depois do reset', function () {
 
     expect(substr($id, -5))->toBe('00001');
 });
+
+it('recusa sequencial fora de 1 a 99999', function ($sequential) {
+    $date = new DateTime('2017-08-03 10:37:00');
+
+    FactoryId::build(1, '99999999', $date, $sequential);
+})->with([100000, -1, 'abc'])->throws(InvalidArgumentException::class, 'use um inteiro de 1 a 99999');
+
+it('aceita o sequencial 99999', function () {
+    $date = new DateTime('2017-08-03 10:37:00');
+
+    $id = FactoryId::build(1, '99999999', $date, 99999);
+
+    expect(substr($id, -5))->toBe('99999');
+});

@@ -7,6 +7,11 @@ use NFePHP\Common\Certificate;
 
 class Tools
 {
+    const EVT_TABELAS = 1;
+
+    /**
+     * @deprecated use EVT_TABELAS (nome oficial do grupo 1)
+     */
     const EVT_INICIAIS = 1;
 
     const EVT_NAO_PERIODICOS = 2;

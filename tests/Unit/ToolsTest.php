@@ -68,7 +68,7 @@ describe('envio de lote de eventos', function () {
         $tools = toolsWithFakeSoap($this->configJson, $this->certificate);
         $event = infoEmpregadorEvent($this->configJson, $this->certificate);
 
-        $request = fakeSoapRequest($tools->enviarLoteEventos(Tools::EVT_INICIAIS, [$event]));
+        $request = fakeSoapRequest($tools->enviarLoteEventos(Tools::EVT_TABELAS, [$event]));
 
         expect($request['url'])->toEndWith('/WsEnviarLoteEventos.svc')
             ->and($request['body'])->toContain('<envioLoteEventos grupo="1">')
@@ -89,13 +89,13 @@ describe('envio de lote de eventos', function () {
         $tools = toolsWithFakeSoap($this->configJson, $this->certificate);
         $events = array_fill(0, 51, infoEmpregadorEvent($this->configJson, $this->certificate));
 
-        $tools->enviarLoteEventos(Tools::EVT_INICIAIS, $events);
+        $tools->enviarLoteEventos(Tools::EVT_TABELAS, $events);
     })->throws(InvalidArgumentException::class, 'você está tentando enviar 51 eventos');
 
     it('não envia nada quando o lote está vazio', function () {
         $tools = toolsWithFakeSoap($this->configJson, $this->certificate);
 
-        $response = $tools->enviarLoteEventos(Tools::EVT_INICIAIS, []);
+        $response = $tools->enviarLoteEventos(Tools::EVT_TABELAS, []);
 
         expect($response)->toBe('')
             ->and($tools->lastRequest)->toBeNull();
@@ -105,7 +105,7 @@ describe('envio de lote de eventos', function () {
         $tools = toolsWithFakeSoap($this->configJson, $this->certificate);
         $event = infoEmpregadorEvent($this->configJson);
 
-        $request = fakeSoapRequest($tools->enviarLoteEventos(Tools::EVT_INICIAIS, [$event]));
+        $request = fakeSoapRequest($tools->enviarLoteEventos(Tools::EVT_TABELAS, [$event]));
 
         expect($event->getCertificate())->toBe($this->certificate)
             ->and(substr_count($request['body'], '</Signature>'))->toBe(1);
@@ -116,7 +116,7 @@ describe('envio de lote de eventos', function () {
         $first = infoEmpregadorEvent($this->configJson, $this->certificate);
         $second = infoEmpregadorEvent($this->configJson, $this->certificate);
 
-        $request = fakeSoapRequest($tools->enviarLoteEventos(Tools::EVT_INICIAIS, [$first, $second]));
+        $request = fakeSoapRequest($tools->enviarLoteEventos(Tools::EVT_TABELAS, [$first, $second]));
 
         expect($second->evtid)->not->toBe($first->evtid)
             ->and($request['body'])->toContain("<evento Id=\"{$first->evtid}\">")
@@ -129,7 +129,7 @@ describe('envio de lote de XML assinados', function () {
         $tools = toolsWithFakeSoap($this->configJson, $this->certificate);
         $event = infoEmpregadorEvent($this->configJson, $this->certificate);
 
-        $request = fakeSoapRequest($tools->enviarLoteXmlEventos(Tools::EVT_INICIAIS, [$event->toXML()]));
+        $request = fakeSoapRequest($tools->enviarLoteXmlEventos(Tools::EVT_TABELAS, [$event->toXML()]));
 
         expect($request['body'])->toContain('<envioLoteEventos grupo="1">')
             ->and($request['body'])->toContain("<evento Id=\"{$event->evtid}\">");
@@ -149,13 +149,13 @@ describe('envio de lote de XML assinados', function () {
             cdBenTermEvent($this->configJson, $this->certificate)->toXML(),
         ];
 
-        $tools->enviarLoteXmlEventos(Tools::EVT_INICIAIS, $xmls);
+        $tools->enviarLoteXmlEventos(Tools::EVT_TABELAS, $xmls);
     })->throws(RuntimeException::class, 'apenas eventos pertencentes ao mesmo grupo');
 
     it('recusa XML sem evento do eSocial identificável', function () {
         $tools = toolsWithFakeSoap($this->configJson, $this->certificate);
         $xml = '<eSocial><outroEvento Id="X"/></eSocial>';
 
-        $tools->enviarLoteXmlEventos(Tools::EVT_INICIAIS, [$xml]);
+        $tools->enviarLoteXmlEventos(Tools::EVT_TABELAS, [$xml]);
     })->throws(RuntimeException::class, 'Falha na localização do ID do evento.');
 });

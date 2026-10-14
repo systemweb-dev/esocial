@@ -94,7 +94,7 @@ try {
     $tools->loadSoapClass($soap);
 
     //executa o envio
-    $response = $tools->enviarLoteEventos($tools::EVT_INICIAIS, [$evento]);
+    $response = $tools->enviarLoteEventos($tools::EVT_TABELAS, [$evento]);
 
     //retorna os dados que serão usados na conexão para conferência
     echo FakePretty::prettyPrint($response, '');
