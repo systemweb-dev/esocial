@@ -17,6 +17,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - S-1005: emit `fimValid` in `inclusao/ideEstab` too (allowed by `T_ideEstab` in every S-1.x layout).
 - S-1020: build the `dadosOpPort` group (`aliqRat`, `fap`), accepted by the JSON schema but never emitted.
 - S-1200 (S-1.3): read `observacao` from `infoComplem/sucessaoVinc` instead of `infoComplem`.
+- S-1210: `infoReembMed/cnpjOper` is optional in the JSON schema (the XSD requires it only when `indOrgReemb` = 1).
 - S-2501: build `calcTrib`/`infoCRContrib` (the block was empty) and emit one `ideTrab` per worker (only the last one was appended).
 - S-2501 JSON schema: validate `tpCR` of `infoCRContrib` (`"pattewrn"` typo) and move `ideAdv` from `despProcJud` to `infoRRA`, as in the XSD.
 - Examples: drop `dadosOpPort` from the S-1020 example (only for `tpLotacao` 08) and fix keys `tpacidtransito` (S-2230), `matricant` (S-2300), `tpinsc`/`nrinsc` in `ideAdv` (S-2501); remove obsolete `dsctpjorn` (S-2206).
