@@ -150,8 +150,8 @@ abstract class SoapBase implements SoapInterface
      * @param LoggerInterface $logger
      */
     public function __construct(
-        Certificate $certificate = null,
-        LoggerInterface $logger = null
+        ?Certificate $certificate = null,
+        ?LoggerInterface $logger = null
     ) {
         $this->logger      = $logger;
         $this->certificate = $this->checkCertValidity($certificate);
@@ -165,7 +165,7 @@ abstract class SoapBase implements SoapInterface
      * @return Certificate
      * @throws RuntimeException
      */
-    private function checkCertValidity(Certificate $certificate = null)
+    private function checkCertValidity(?Certificate $certificate = null)
     {
         if ($this->disableCertValidation) {
             return $certificate;

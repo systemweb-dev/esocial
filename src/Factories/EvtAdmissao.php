@@ -52,7 +52,7 @@ class EvtAdmissao extends Factory implements FactoryInterface
     public function __construct(
         $config,
         stdClass $std,
-        Certificate $certificate = null,
+        ?Certificate $certificate = null,
         $date = ''
     ) {
         parent::__construct($config, $std, $certificate, $date);
