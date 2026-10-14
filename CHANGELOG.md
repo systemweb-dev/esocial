@@ -6,6 +6,9 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Added
+- Apply the S-1.3 XSD package of 2026-11-23 (NT 07/2026 rev., item 3.4): S-1000 `indOptRegEletron` optional (do not send when `iniValid >= 2026-02`); S-1210 `indOrgReemb` accepts 3.
+
 ## 2.0.6 - 2026-10-24
 
 ### Changed

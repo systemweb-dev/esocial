@@ -41,3 +41,18 @@ it('aceita o reembolso pelo empregador sem cnpjOper e não emite a tag', functio
 
     expect($document->getElementsByTagName('cnpjOper')->length)->toBe(0);
 });
+
+it('aceita indOrgReemb 3 sem cnpjOper (pacote 2026-11-23)', function () {
+    $std = pgtosComReembolso('3', null);
+    $event = new EvtPgtos($this->configJson, $std, $this->certificate, '2026-10-14 10:00:00');
+
+    $document = eventDocument($event);
+
+    expect($document->getElementsByTagName('indOrgReemb')->item(0)->textContent)->toBe('3');
+});
+
+it('recusa indOrgReemb fora de 1, 2 e 3', function () {
+    $std = pgtosComReembolso('4');
+
+    new EvtPgtos($this->configJson, $std, $this->certificate, '2026-10-14 10:00:00');
+})->throws(Exception::class, 'indorgreemb');
