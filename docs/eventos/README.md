@@ -2,7 +2,7 @@
 
 <!-- Gerado por .claude/skills/update-esocial/scripts/gen_docs.py. Não edite à mão. -->
 
-Leiaute S-1.3, pacote XSD 2026-12-14. Cada página lista os campos do `stdClass`.
+Leiaute S-1.3, pacote XSD 2027-01-18. Cada página lista os campos do `stdClass`.
 
 | Código | Evento | Classe | Grupo |
 |---|---|---|---|
