@@ -9,6 +9,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Added
 - Apply the S-1.3 XSD package of 2026-11-23 (NT 07/2026 rev., item 3.4): S-1000 `indOptRegEletron` optional (do not send when `iniValid >= 2026-02`); S-1210 `indOrgReemb` accepts 3.
 - Apply the S-1.3 XSD package of 2026-12-14 (NT 07/2026 rev., item 3.5): S-1000 optional `indSiafi` (`S`); S-1010 `codIncCP` accepts 23, 24, 27 and 28 (paternity pay).
+- Apply the S-1.3 XSD package of 2027-01-18 (NT 07/2026 rev., item 3.6): S-8200 gets `observacoes` (the library does not build S-8200; only the XSD changes).
 
 ## 2.0.3 - 2026-10-16
 
