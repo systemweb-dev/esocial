@@ -157,29 +157,6 @@ class SoapCurl extends SoapBase implements SoapInterface
         }
     }
     /**
-     * Extract faultstring form response if exists
-     * @param  string $body
-     * @return string
-     */
-    private function getFaultString($body)
-    {
-        if (empty($body)) {
-            return '';
-        }
-        $dom = new \DOMDocument('1.0', 'UTF-8');
-        $dom->formatOutput = false;
-        $dom->preserveWhiteSpace = false;
-        $dom->loadXML($body);
-        $faultstring = '';
-        $nodefault = ! empty($dom->getElementsByTagName('faultstring')->item(0))
-            ? $dom->getElementsByTagName('faultstring')->item(0)
-            : '';
-        if (!empty($nodefault)) {
-            $faultstring = $nodefault->nodeValue;
-        }
-        return htmlentities($faultstring, ENT_QUOTES, 'UTF-8');
-    }
-    /**
      * Recover WSDL form given URL
      * @param  string $url
      * @return string

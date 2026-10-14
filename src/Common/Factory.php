@@ -160,10 +160,6 @@ abstract class Factory
         $this->std = $this->propertiesToLower($std);
         //validate input data with schema
         $this->validInputData($this->std);
-        //Adding forgotten or unnecessary fields.
-        //This is done for standardization purposes.
-        //Fields with no value will not be included by the builder.
-        //$this->std = $this->standardizeProperties($this->std);
         $this->init();
     }
 
@@ -378,21 +374,6 @@ abstract class Factory
     public function toStd()
     {
         return $this->std;
-    }
-
-    /**
-     * Adjust missing properties form original data according schema
-     * @param \stdClass $data
-     * @return \stdClass
-     */
-    public function standardizeProperties(stdClass $data)
-    {
-        if (!is_file($this->jsonschema)) {
-            return $data;
-        }
-        $jsonSchemaObj = json_decode(file_get_contents($this->jsonschema));
-        $sc = new ParamsStandardize($jsonSchemaObj);
-        return $sc->stdData($data);
     }
 
     /**

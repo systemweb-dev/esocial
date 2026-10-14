@@ -18,7 +18,6 @@ namespace NFePHP\eSocial\Common\Soap;
 use NFePHP\Common\Certificate;
 use NFePHP\Common\Exception\RuntimeException;
 use NFePHP\Common\Files;
-use NFePHP\Common\Strings;
 use Psr\Log\LoggerInterface;
 
 abstract class SoapBase implements SoapInterface
@@ -54,10 +53,6 @@ abstract class SoapBase implements SoapInterface
     /**
      * @var int
      */
-    public $waitingTime = 45;
-    /**
-     * @var int
-     */
     protected $soapprotocol = self::SSL_DEFAULT;
     /**
      * @var int
@@ -80,10 +75,6 @@ abstract class SoapBase implements SoapInterface
      */
     protected $proxyPass;
     /**
-     * @var array
-     */
-    protected $prefixes = [1 => 'soapenv', 2 => 'soap'];
-    /**
      * @var Certificate
      */
     protected $certificate;
@@ -98,23 +89,7 @@ abstract class SoapBase implements SoapInterface
     /**
      * @var string
      */
-    protected $certsdir;
-    /**
-     * @var string
-     */
     protected $debugdir;
-    /**
-     * @var string
-     */
-    protected $prifile;
-    /**
-     * @var string
-     */
-    protected $pubfile;
-    /**
-     * @var string
-     */
-    protected $certfile;
     /**
      * @var string
      */
@@ -131,14 +106,6 @@ abstract class SoapBase implements SoapInterface
      * @var Files
      */
     protected $filesystem;
-    /**
-     * @var string
-     */
-    protected $temppass = '';
-    /**
-     * @var bool
-     */
-    protected $encriptPrivateKey = true;
     /**
      * @var bool
      */
@@ -199,54 +166,6 @@ abstract class SoapBase implements SoapInterface
         $this->filesystem = new Files($folder);
     }
     /**
-     * Destructor
-     * Clean temporary files
-     */
-    public function __destruct()
-    {
-        $this->removeTemporarilyFiles();
-    }
-    /**
-     * Delete all files in folder
-     */
-    public function removeTemporarilyFiles()
-    {
-        if (empty($this->certsdir)) {
-            return;
-        }
-        $contents = $this->filesystem->listContents($this->certsdir);
-        //define um limite de $waitingTime min, ou seja qualquer arquivo criado a mais
-        //de $waitingTime min será removido
-        //NOTA: quando ocorre algum erro interno na execução do script, alguns
-        //arquivos temporários podem permanecer
-        //NOTA: O tempo default é de 45 minutos e pode ser alterado diretamente nas
-        //propriedades da classe, esse tempo entre 5 a 45 min é recomendável pois
-        //podem haver processos concorrentes para um mesmo usuário. Esses processos
-        //como o DFe podem ser mais longos, dependendo a forma que o aplicativo
-        //utilize a API. Outra solução para remover arquivos "perdidos" pode ser
-        //encontrada oportunamente.
-        $dt = new \DateTime();
-        $tint = new \DateInterval("PT".$this->waitingTime."M");
-        $tint->invert = true;
-        $tsLimit = $dt->add($tint)->getTimestamp();
-        foreach ($contents as $item) {
-            if ($item['type'] === 'file') {
-                if ($item['path'] == $this->prifile
-                    || $item['path'] == $this->pubfile
-                    || $item['path'] == $this->certfile
-                ) {
-                    $this->filesystem->delete($item['path']);
-                    continue;
-                }
-                $timestamp = $this->filesystem->getTimestamp($item['path']);
-                if ($timestamp < $tsLimit) {
-                    //remove arquivos criados a mais de 45 min
-                    $this->filesystem->delete($item['path']);
-                }
-            }
-        }
-    }
-    /**
      * Disables the security checking of host and peer certificates
      *
      * @param bool $flag
@@ -283,18 +202,6 @@ abstract class SoapBase implements SoapInterface
             throw new \InvalidArgumentException("Bundle de CAs não encontrado: $capath");
         }
         $this->casefaz = $capath;
-    }
-    /**
-     * Set option to encript private key before save in filesystem
-     * for an additional layer of protection
-     *
-     * @param  bool $encript
-     *
-     * @return bool
-     */
-    public function setEncriptPrivateKey($encript = true)
-    {
-        return $this->encriptPrivateKey = $encript;
     }
     /**
      * Set debug mode, this mode will save soap envelopes in temporary directory
@@ -346,17 +253,6 @@ abstract class SoapBase implements SoapInterface
         return $this->soapprotocol = $protocol;
     }
     /**
-     * Set prefixes
-     *
-     * @param  string $prefixes
-     *
-     * @return string
-     */
-    public function setSoapPrefix($prefixes)
-    {
-        return $this->prefixes = $prefixes;
-    }
-    /**
      * Set proxy parameters
      *
      * @param string $ip
@@ -381,52 +277,6 @@ abstract class SoapBase implements SoapInterface
         $envelope,
         $parameters
     );
-    /**
-     * Temporarily saves the certificate keys for use cURL or SoapClient
-     */
-    public function saveTemporarilyKeyFiles()
-    {
-        if (! is_object($this->certificate)) {
-            throw new RuntimeException(
-                'Certificate not found.'
-            );
-        }
-        $this->certsdir = $this->certificate->getCnpj().'/certs/';
-        $this->prifile = $this->certsdir.Strings::randomString(10).'.pem';
-        $this->pubfile = $this->certsdir.Strings::randomString(10).'.pem';
-        $this->certfile = $this->certsdir.Strings::randomString(10).'.pem';
-        $ret = true;
-        $private = $this->certificate->privateKey;
-        if ($this->encriptPrivateKey) {
-            //cria uma senha temporária ALEATÓRIA para salvar a chave primaria
-            //portanto mesmo que localizada e identificada não estará acessível
-            //pois sua senha não existe além do tempo de execução desta classe
-            $this->temppass = Strings::randomString(16);
-            //encripta a chave privada entes da gravação do filesystem
-            openssl_pkey_export(
-                $this->certificate->privateKey,
-                $private,
-                $this->temppass
-            );
-        }
-        $ret &= $this->filesystem->put(
-            $this->prifile,
-            $private
-        );
-        $ret &= $this->filesystem->put(
-            $this->pubfile,
-            $this->certificate->publicKey
-        );
-        $ret &= $this->filesystem->put(
-            $this->certfile,
-            $private."{$this->certificate}"
-        );
-        if (! $ret) {
-            throw new RuntimeException(
-                'Unable to save temporary key files in folder.'
-            );
-        }
-    }
     /**
      * Save request envelope and response for debug reasons
      *
@@ -458,42 +308,5 @@ abstract class SoapBase implements SoapInterface
                 'Unable to create debug files.'
             );
         }
-    }
-    /**
-     * Mount soap envelope
-     *
-     * @param  string $request
-     * @param  array $namespaces
-     * @param  \SOAPHeader $header
-     *
-     * @return string
-     */
-    protected function makeEnvelopeSoap(
-        $request,
-        $namespaces,
-        $soapver = SOAP_1_2,
-        $header = null
-    ) {
-        $prefix   = $this->prefixes[$soapver];
-        $envelope = "<$prefix:Envelope";
-        foreach ($namespaces as $key => $value) {
-            $envelope .= " $key=\"$value\"";
-        }
-        $envelope   .= ">";
-        $soapheader = "<$prefix:Header/>";
-        if (! empty($header)) {
-            $ns = ! empty($header->namespace) ? $header->namespace : '';
-            $name = $header->name;
-            $soapheader = "<$prefix:Header>";
-            $soapheader .= "<$name xmlns=\"$ns\">";
-            foreach ($header->data as $key => $value) {
-                $soapheader .= "<$key>$value</$key>";
-            }
-            $soapheader .= "</$name></$prefix:Header>";
-        }
-        $envelope .= $soapheader;
-        $envelope .= "<$prefix:Body>$request</$prefix:Body>"
-            ."</$prefix:Envelope>";
-        return $envelope;
     }
 }

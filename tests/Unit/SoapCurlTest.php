@@ -12,11 +12,12 @@ it('verifica o certificado e o nome do servidor por padrão', function () {
 
 it('usa o bundle de CAs informado no lugar do store do sistema', function () {
     $soap = new SoapCurl($this->certificate);
-    $bundle = dirname(__DIR__, 2) . '/console/icpbrasilv5.crt';
+    $bundle = tempnam(sys_get_temp_dir(), 'ca');
     $soap->loadCA($bundle);
 
     $options = $soap->securityOptions();
 
+    unlink($bundle);
     expect($options)->toBe([
         CURLOPT_SSL_VERIFYPEER => true,
         CURLOPT_SSL_VERIFYHOST => 2,
