@@ -122,7 +122,7 @@ abstract class Factory
     public function __construct(
         $config,
         stdClass $std,
-        Certificate $certificate = null,
+        ?Certificate $certificate = null,
         $date = null
     ) {
         //set properties from config
@@ -134,6 +134,7 @@ abstract class Factory
         $this->tpAmb = $stdConf->tpAmb;
         $this->verProc = $stdConf->verProc;
         $this->layout = $stdConf->eventoVersion;
+        $this->refuseClosedLayout($this->layout);
         $this->tpInsc = $stdConf->empregador->tpInsc;
         $this->nrInsc = $stdConf->empregador->nrInsc;
         $this->nmRazao = $stdConf->empregador->nmRazao ?? null;
@@ -164,6 +165,24 @@ abstract class Factory
         //Fields with no value will not be included by the builder.
         //$this->std = $this->standardizeProperties($this->std);
         $this->init();
+    }
+
+    /**
+     * O eSocial só aceita o leiaute S-1.3 (S-1.2 encerrado em 02/02/2025).
+     * Compara maior.menor do eventoVersion (S.1.2.0 → 1.2) com 1.3.
+     *
+     * @param string $layout
+     * @throws \InvalidArgumentException
+     */
+    protected function refuseClosedLayout($layout)
+    {
+        if (preg_match('/(\d+)\.(\d+)/', (string) $layout, $match)
+            && version_compare($match[1] . '.' . $match[2], '1.3', '<')
+        ) {
+            throw new \InvalidArgumentException(
+                "Leiaute $layout encerrado no eSocial: use S.1.3.0."
+            );
+        }
     }
 
     /**

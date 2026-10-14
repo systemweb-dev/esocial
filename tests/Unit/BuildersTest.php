@@ -7,9 +7,8 @@ use NFePHP\eSocial\Event;
  * Cada exemplo monta o evento com o certificado de teste e imprime o XML; aqui o XML é conferido
  * contra o XSD oficial em schemes/<leiaute>.
  *
- * Os exemplos leem o certificado e o bootstrap por caminho relativo. Todos rodam a partir da pasta
- * do S-1.3: o expired_certificate.pfx das pastas antigas usa criptografia legada que o OpenSSL 3
- * não abre, e a profundidade das pastas é a mesma, então ../../../bootstrap.php continua valendo.
+ * Os exemplos leem o certificado e o bootstrap por caminho relativo, a partir da pasta do S-1.3
+ * (o único leiaute aceito pelo eSocial e pela biblioteca).
  */
 
 function runEsocialExample(string $file): string
@@ -65,7 +64,7 @@ function xsdErrors(DOMDocument $document, string $xsd): string
 }
 
 dataset('exemplos', function () {
-    foreach (['S-1.2' => 'v_S_01_02_00', 'S-1.3' => 'v_S_01_03_00'] as $label => $layout) {
+    foreach (['S-1.3' => 'v_S_01_03_00'] as $label => $layout) {
         $files = glob(dirname(__DIR__, 2) . "/examples/Fake/$layout/Fake_s*.php");
         sort($files);
         foreach ($files as $file) {

@@ -73,6 +73,23 @@ describe('validação da entrada', function () {
 
         expect($event->toArray())->toBe(infoEmpregadorData());
     });
+
+    it('recusa leiaute encerrado no eSocial', function (string $layout) {
+        $config = json_decode($this->configJson, true);
+        $config['eventoVersion'] = $layout;
+        $std = toStdClass(infoEmpregadorData());
+
+        new EvtInfoEmpregador(json_encode($config), $std, $this->certificate);
+    })->with(['S.1.0.0', 'S.1.1.0', 'S.1.2.0', 'S.1.2'])
+        ->throws(InvalidArgumentException::class, 'encerrado no eSocial: use S.1.3.0.');
+
+    it('não chama de encerrado o S-1.3 escrito sem o último número', function () {
+        $config = json_decode($this->configJson, true);
+        $config['eventoVersion'] = 'S.1.3';
+        $std = toStdClass(infoEmpregadorData());
+
+        new EvtInfoEmpregador(json_encode($config), $std, $this->certificate);
+    })->throws(InvalidArgumentException::class, 'Schemas não localizados');
 });
 
 describe('saída do evento', function () {
