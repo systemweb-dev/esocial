@@ -23,6 +23,8 @@ def elements(path: Path) -> dict:
     def walk(node, prefix):
         for child in node:
             p = prefix
+            if child.tag in (f'{XS}complexType', f'{XS}simpleType') and child.get('name'):
+                p = f"#{child.get('name')}"
             if child.tag == f'{XS}element' and (child.get('name') or child.get('ref')):
                 p = f"{prefix}/{child.get('name') or child.get('ref')}"
                 # só a anotação e o simpleType do próprio elemento (não dos filhos)
@@ -41,6 +43,28 @@ def elements(path: Path) -> dict:
             walk(child, p)
 
     walk(root, '')
+    return out
+
+
+FACETS = ('length', 'minLength', 'maxLength', 'pattern', 'totalDigits', 'fractionDigits',
+          'minInclusive', 'maxInclusive', 'minExclusive', 'maxExclusive')
+
+
+def simple_types(path: Path) -> dict:
+    """Mapa nome -> enumerações e facetas de cada xs:simpleType nomeado do arquivo."""
+    root = ET.fromstring(norm(path).encode())
+    out = {}
+    for st in root.iter(f'{XS}simpleType'):
+        name = st.get('name')
+        if not name:
+            continue
+        restriction = st.find(f'{XS}restriction')
+        facets = {'base': restriction.get('base', '') if restriction is not None else ''}
+        for facet in FACETS:
+            node = restriction.find(f'{XS}{facet}') if restriction is not None else None
+            if node is not None:
+                facets[facet] = node.get('value')
+        out[name] = {'enum': sorted(e.get('value') for e in st.iter(f'{XS}enumeration')), 'facets': facets}
     return out
 
 
@@ -66,6 +90,20 @@ def compare(old: Path, new: Path) -> list:
             lines.append(f'  * {p}: valores +{add} -{rem}')
         if x['valid'] != y['valid']:
             lines.append(f'  * {p}: regra de validação alterada: {(y["valid"] or [""])[0][:180]}')
+    ta, tb = simple_types(old), simple_types(new)
+    for name in sorted(set(tb) - set(ta)):
+        lines.append(f'  + novo tipo {name}')
+    for name in sorted(set(ta) - set(tb)):
+        lines.append(f'  - tipo removido {name}')
+    for name in sorted(set(ta) & set(tb)):
+        x, y = ta[name], tb[name]
+        if x['enum'] != y['enum']:
+            add = sorted(set(y['enum']) - set(x['enum']))
+            rem = sorted(set(x['enum']) - set(y['enum']))
+            lines.append(f'  * {name}: valores +{add} -{rem}')
+        for facet in sorted(set(x['facets']) | set(y['facets'])):
+            if x['facets'].get(facet) != y['facets'].get(facet):
+                lines.append(f'  * {name}: {facet} {x["facets"].get(facet)} -> {y["facets"].get(facet)}')
     return lines
 
 
