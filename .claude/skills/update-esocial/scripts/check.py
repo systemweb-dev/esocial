@@ -46,13 +46,27 @@ def parse(page: str) -> dict:
         m = re.search(r'(\d{2})/(\d{4})', t)
         return (int(m.group(2)), int(m.group(1)), 'rev' in t) if m else (0, 0, False)
     nts = sorted({re.sub(r'\s+', ' ', t) for t, _ in items if re.match(r'Nota T[ée]cnica v\. S-1\.3', t)}, key=nt_key)
-    comm = sorted({m.group(1) for t, _ in items for m in [re.search(r'Pacote de Comunica[çc][ãa]o eSocial v\.?\s*([\d.]+)(?!\s*-\s*Alfa)', t)] if m})
+    comm = sorted({m.group(1) + ('-Alfa' if m.group(2) else '')
+                   for t, _ in items
+                   for m in [re.search(r'Pacote de Comunica[çc][ãa]o eSocial v\.?\s*(\d+(?:\.\d+)*)(\s*-\s*Alfa)?', t)] if m},
+                  key=lambda v: comm_key(v))
     msgs = sorted({m.group(1) for t, _ in items for m in [re.search(r'Mensagens do Sistema - v\.\s*([\d.]+)', t)] if m})
     return {'xsd': xsd, 'nts': nts, 'comm': comm, 'msgs': msgs}
 
 
 def ver(v: str) -> tuple:
     return tuple(int(x) for x in v.split('.') if x.isdigit())
+
+
+def comm_key(v: str) -> tuple:
+    """Ordem do Pacote de Comunicação: 1.6 < 1.6-Alfa (superconjunto mais novo) < 1.7."""
+    nums = [int(x) for x in re.findall(r'\d+', v.split('-')[0])]
+    return tuple((nums + [0, 0, 0])[:3]) + (1 if 'alfa' in v.lower() else 0,)
+
+
+def comm_is_news(published: list, applied: str) -> bool:
+    """Há pacote publicado acima do aplicado (ver comm_key)."""
+    return bool(published) and max(comm_key(v) for v in published) > comm_key(applied)
 
 
 def main() -> int:
@@ -77,9 +91,9 @@ def main() -> int:
     print(f'Nota técnica  aplicada {state["technical_note"]} | mais recente na página: {latest_nt}')
     has_news |= not nt_applied
 
-    comm = max(found['comm'], key=ver) if found['comm'] else '?'
+    comm = max(found['comm'], key=comm_key) if found['comm'] else '?'
     print(f'Comunicação   aplicada {state["communication"]} | publicada {comm}')
-    has_news |= comm != '?' and ver(comm) > ver(state['communication'])
+    has_news |= comm_is_news(found['comm'], state['communication'])
 
     msgs = max(found['msgs'], key=ver) if found['msgs'] else '?'
     print(f'Mensagens     lida {state.get("system_messages") or "nunca"} | publicada {msgs}')

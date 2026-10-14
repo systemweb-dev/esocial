@@ -14,3 +14,4 @@ Caddyfile
 phpcbf.phar
 phpcs.phar
 vendor/
+__pycache__/
