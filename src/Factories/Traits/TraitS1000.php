@@ -762,6 +762,12 @@ trait TraitS1000
                 $cad->indpertirrf ?? null,
                 false
             );
+            $this->dom->addChild(
+                $infoCadastro,
+                "indSiafi",
+                $cad->indsiafi ?? null,
+                false
+            );
         }
         if (isset($this->std->dadosisencao) && !empty($infoCadastro)) {
             $cad  = $this->std->dadosisencao;

@@ -10,12 +10,11 @@
     "updated_at": "Data da última atualização deste arquivo (AAAA-MM-DD), feita pela skill update-esocial ao aplicar algo."
   },
   "layout": "S-1.3",
-  "xsd_package": "2026-11-23",
+  "xsd_package": "2026-12-14",
   "technical_note": "07/2026 rev. 20/10/2026",
   "communication": "1.6.0-Alfa",
   "system_messages": "2.5",
   "pending_packages": [
-    {"xsd_package": "2026-12-14", "branch": "feature/xsd-2026-12-14", "merge_on": "2026-12-07"},
     {"xsd_package": "2027-01-18", "branch": "feature/xsd-2027-01-18", "merge_on": "2027-01-18"}
   ],
   "upstream_reviewed": "07fa48b9f806a78dc3da8a625d4b718305694ac0",
