@@ -13,9 +13,9 @@ class ESocialTestCase extends TestCase
 
     public $certificate;
 
-    public function __construct(string $name)
+    protected function setUp(): void
     {
-        parent::__construct($name);
+        parent::setUp();
 
         $this->fixturesPath = __DIR__.'/fixtures/';
         $contentpfx         = file_get_contents($this->fixturesPath."certs/expired_certificate.pfx");
