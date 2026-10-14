@@ -34,7 +34,7 @@ Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique pert
 | `src/Common/Soap/SoapCurl.php` | conexão com o governo (certificado pela memória) |
 | `src/Tools.php` | envio/consulta de lotes e grupos de eventos |
 | `examples/Fake/v_S_01_03_00/` | um exemplo por evento; base do `validate.php` |
-| `tests/` | `php -d xdebug.mode=off vendor/bin/phpunit` |
+| `tests/Unit/` | testes em Pest (`composer test`); helpers em `tests/Pest.php` |
 
 ## Regras
 
@@ -45,6 +45,8 @@ Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique pert
   `codIncCPRP` (S-1010), `indenSD`/`indenAbono` (S-2500); `ideSeqProc` (S-2501) acrescentado.
 - Certificado só pela memória (`CURLOPT_SSLCERT_BLOB`/`CURLOPT_SSLKEY_BLOB`); nunca grave PEM.
 - Nunca rode com Xdebug ou `display_errors` ligados onde há certificado: o stack trace imprime a chave.
+- Testes em Pest e AAA estrito: um Act por teste, exceção em `->throws()`, helper sem asserção.
+  Campo novo ou bug de montador entra com teste em `tests/Unit/Factories/`.
 - O XSD não cobre as regras de negócio do governo (ex.: RAT só se divergir da lei, `horNoturno`,
   `grauExp`, `indApurIR` obrigatórios). Catálogo e XMLs reais em
   `/var/www/enviaesocial/docs/esocial-tests/`.
@@ -55,5 +57,5 @@ Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique pert
 python3 .claude/skills/update-esocial/scripts/check.py      # o que saiu de novo
 python3 .claude/skills/update-esocial/scripts/compare_xsd.py schemes/v_S_01_03_00 <pasta-nova>
 php .claude/skills/update-esocial/scripts/validate.php           # exemplos válidos no XSD
-php -d xdebug.mode=off vendor/bin/phpunit
+composer test                                                   # suíte Pest (vendor/bin/pest)
 ```
