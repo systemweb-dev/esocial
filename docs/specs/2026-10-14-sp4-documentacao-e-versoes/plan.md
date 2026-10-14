@@ -1193,18 +1193,18 @@ Esperado: Pest verde sem deprecated; `OK` (42 testes); `40/40`; `gen_docs 0`; `c
 
 **Depende de:** Task 5 commitada
 
-- [ ] **Step 1: tag** (com o ok do usuário)
+- [x] **Step 1: tag** (com o ok do usuário)
 
 ```bash
 git switch master && git status --short          # vazio
 git tag -a v2.0.0 -m "v2.0.0: primeira versão do fork System Web (leiaute S-1.3, pacote XSD 2026-10-26)"
 ```
 
-- [ ] **Step 2: conferir**
+- [x] **Step 2: conferir**
 
 Rode: `git describe --tags` → `v2.0.0`; `grep -c '^## 2.0.0' CHANGELOG.md` → `1`.
 
-- [ ] **Step 3: rebase dos branches**
+- [x] **Step 3: rebase dos branches**
 
 ```bash
 git rebase --update-refs master xsd/2027-01-18
@@ -1214,7 +1214,7 @@ Em cada conflito do `CHANGELOG.md`: o item do pacote (`- Apply the S-1.3 XSD pac
 no 12-14 a linha do `codIncCP`) vai para um `### Added` logo abaixo de `## Unreleased`; o
 `## 2.0.0` fica igual ao do master. Depois `git add CHANGELOG.md && GIT_EDITOR=true git rebase --continue`.
 
-- [ ] **Step 4: docs regeneradas em cada branch**
+- [x] **Step 4: docs regeneradas em cada branch**
 
 Para cada branch, na ordem `xsd/2026-11-23`, `xsd/2026-12-14`, `xsd/2027-01-18`:
 
@@ -1226,7 +1226,7 @@ git rebase --update-refs <branch> xsd/2027-01-18   # só nos dois primeiros: lev
 
 (Conflito em `docs/eventos` no rebase: aceite o lado do branch e regenere no passo seguinte.)
 
-- [ ] **Step 5: verificar cada branch**
+- [x] **Step 5: verificar cada branch**
 
 ```bash
 for b in xsd/2026-11-23 xsd/2026-12-14 xsd/2027-01-18; do git switch -q $b
@@ -1264,3 +1264,8 @@ porque os branches já estão no GitHub e foram rebaseados).
   pacote, grupo declarado ≠ grupo dos XML, certificado vencido). README: o exemplo confere
   `cdResposta` 201 antes de ler o protocolo; o comentário do `get()` cita `variantes`. CHANGELOG
   2.0.0: rename do pacote, `EventsException::getCode()` (1004/1005 removidos) e o `XsdSeeker`.
+- **2026-10-14 (Task 6)** — o conflito do CHANGELOG no rebase foi resolvido por script (lado do
+  master + linhas novas do branch em `## Unreleased`); no commit do `codIncCP`, que **altera** a
+  linha do pacote 12-14, o script duplicou a linha: corrigido com amend no `xsd/2026-12-14` e
+  `rebase --skip` do commit antigo no `xsd/2027-01-18`. Cada branch ganhou um commit
+  "docs: regenera docs/eventos" (o cabeçalho das páginas traz o pacote XSD).

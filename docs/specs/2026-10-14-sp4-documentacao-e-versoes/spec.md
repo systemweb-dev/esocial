@@ -2,7 +2,7 @@
 titulo: SP4 documentacao e versoes
 slug: 2026-10-14-sp4-documentacao-e-versoes
 criado: 2026-10-14
-estado: aprovado
+estado: concluido
 ---
 
 # SP4 — documentação e versões
