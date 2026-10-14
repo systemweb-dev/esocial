@@ -490,7 +490,7 @@
                                 "indorgreemb": {
                                     "required": true,
                                     "type": "string",
-                                    "pattern": "^(1|2)$"
+                                    "pattern": "^(1|2|3)$"
                                 },
                                 "cnpjoper": {
                                     "required": false,

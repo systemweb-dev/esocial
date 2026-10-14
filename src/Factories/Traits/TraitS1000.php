@@ -735,8 +735,8 @@ trait TraitS1000
             $this->dom->addChild(
                 $infoCadastro,
                 "indOptRegEletron",
-                $cad->indoptregeletron,
-                true
+                $cad->indoptregeletron ?? null,
+                false
             );
             $this->dom->addChild(
                 $infoCadastro,

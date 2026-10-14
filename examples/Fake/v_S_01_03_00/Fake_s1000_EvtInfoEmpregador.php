@@ -48,6 +48,7 @@ $std->infocadastro->indconstr = 0; //Indicativo de Construtora: 0 - Não é Cons
 $std->infocadastro->inddesfolha = 0; //Indicativo de Desoneração da Folha: 0 - Não Aplicável; 1 - Empresa enquadrada nos art. 7º a 9º da Lei 12.546/2011.
 $std->infocadastro->indopccp = 2; //Indicativo da opção pelo produtor rural pela forma de tributação da contribuição previdenciária, nos termos do art. 25, §13, da Lei 8.212/1991 e do art. 25, §7°, da Lei 8.870/1994. O não preenchimento deste campo por parte do produtor rural implica opção pela comercialização da sua produção: 1 - Sobre a comercialização da sua produção; 2 - Sobre a folha de pagamento.
 $std->infocadastro->indporte = 'S'; //Indicativo de microempresa ou empresa de pequeno porte
+//indoptregeletron: opcional a partir do pacote de 2026-11-23; não informar se iniValid >= 2026-02
 $std->infocadastro->indoptregeletron = 0; //registro eletrônico de empregados: 0 - Não optou pelo registro eletrônico de empregados; 1 - Optou pelo registro eletrônico de empregados
 $std->infocadastro->cnpjefr = '12345678901234'; //Opcional
 $std->infocadastro->dttrans11096 = '2023-01-22'; //Opcional

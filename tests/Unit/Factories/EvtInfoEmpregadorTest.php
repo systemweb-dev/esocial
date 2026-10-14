@@ -69,3 +69,12 @@ it('recusa indPertIRRF diferente de S', function () {
 
     new EvtInfoEmpregador($this->configJson, $std, $this->certificate, '2026-01-05 10:00:00');
 })->throws(Exception::class, 'infocadastro.indpertirrf');
+
+it('aceita o S-1000 sem indOptRegEletron e não emite a tag', function () {
+    $std = infoEmpregadorCadastro([], ['indoptregeletron']);
+    $event = new EvtInfoEmpregador($this->configJson, $std, $this->certificate, '2026-01-05 10:00:00');
+
+    $document = eventDocument($event);
+
+    expect($document->getElementsByTagName('indOptRegEletron')->length)->toBe(0);
+});
