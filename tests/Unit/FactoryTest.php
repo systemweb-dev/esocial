@@ -44,7 +44,7 @@ describe('validação da entrada', function () {
         $std = toStdClass($data);
 
         new EvtInfoEmpregador($this->configJson, $std, $this->certificate);
-    })->throws(Exception::class, '[modo] A propriedade modo é obrigatório');
+    })->throws(Exception::class, '[modo] A propriedade modo é obrigatória');
 
     it('recusa campo fora do padrão indicando o caminho da propriedade', function () {
         $data = infoEmpregadorData();

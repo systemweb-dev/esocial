@@ -8,8 +8,8 @@ class TranslateJsonValidation
      * @var array
      */
     protected static $frases = [
-        'no schema found to verify against' => 'sem um schema parra verificar',
-        'Cannot validate the schema of a non-object' => 'Impossivel validar o '
+        'no schema found to verify against' => 'sem um schema para verificar',
+        'Cannot validate the schema of a non-object' => 'Impossível validar o '
             .'schema de algo que não é um objeto',
         'Schema did not pass validation' => 'O schema não passa na validação',
         'Schema is not valid' => 'O schema não é válido',
@@ -18,22 +18,23 @@ class TranslateJsonValidation
         'There must be a minimum of' => 'Deve haver um mínimo de',
         'items in the array' => 'itens no array',
         'There must be a maximum of' => 'Deve haver um máximo de',
-        'There are no duplicates allowed in the array' => 'Não são permitidas repetiçõess no array',
+        'There are no duplicates allowed in the array' => 'Não são permitidas repetições no array',
         'The item' => 'O item',
         'is not defined and the definition does not allow additional items'
             => 'não está definido e a definição não permite itens adicionais',
         'Does not have a value in the enumeration' => 'Não possui um valor na enumeração',
         'Unknown constraint' => 'Restrição desconhecida, falha de codificação',
+        // data e hora antes de data: 'Invalid date' e 'YYYY-MM-DD' são prefixos dela
+        'Invalid date-time' => 'Data e hora inválidas',
+        'expected format YYYY-MM-DDThh:mm:ssZ or YYYY-MM-DDThh:mm:ss+hh:mm'
+            => 'esperado o formato YYYY-MM-DDThh:mm:ssZ ou YYYY-MM-DDThh:mm:ss+hh:mm',
         'Invalid date' => 'Data inválida',
         'expected format YYYY-MM-DD' => 'esperado o formato YYYY-MM-DD',
         'Invalid time' => 'Hora inválida',
         'expected format hh:mm:ss' => 'esperado formato HH:mm:ss',
-        'Invalid date-time' => 'Inválida data hora',
-        'expected format YYYY-MM-DDThh:mm:ssZ or YYYY-MM-DDThh:mm:ss+hh:mm'
-            => 'esparado o formto YYYY-MM-DDThh:mm:ssZ ou YYYY-MM-DDThh:mm:ss+hh:mm',
         'expected integer of milliseconds since Epoch'
-            => 'esperado numero inteiro de millisegundos desde Epoch',
-        'Invalid regex format' => 'Invalido formato regex',
+            => 'esperado número inteiro de milissegundos desde Epoch',
+        'Invalid regex format' => 'Formato regex inválido',
         'Invalid color' => 'Cor inválida',
         'Invalid style' => 'Estilo inválido',
         'Invalid phone number' => 'Telefone inválido',
@@ -41,12 +42,12 @@ class TranslateJsonValidation
         'Invalid email' => 'Email inválido',
         'Invalid IP address' => 'Endereço IP inválido',
         'Invalid hostname' => 'Hostname inválido',
-        'Must have a minimum value of' => 'Deve ter no minimo',
+        'Must have a minimum value of' => 'Deve ter no mínimo',
         'Must have a maximum value of' => 'Deve ter no máximo',
         'Use of exclusiveMinimum requires presence of minimum'
-            => 'Requer a presença do minimo',
-        'Is not divisible by' => 'Não é divisivel por',
-        'Must be a multiple of' => 'Tem que ser um multiplo de',
+            => 'Requer a presença do mínimo',
+        'Is not divisible by' => 'Não é divisível por',
+        'Must be a multiple of' => 'Tem que ser um múltiplo de',
         'The pattern' => 'O padrão',
         'is invalid' => 'é inválido',
         'The property' => 'A propriedade',
@@ -55,7 +56,7 @@ class TranslateJsonValidation
         'The presence of the property' => 'A presença dessa propriedade',
         'requires that' => 'requer que',
         'also be present' => 'também esteja presente',
-        'Must contain a minimum of' => 'Deve conter um minimo de',
+        'Must contain a minimum of' => 'Deve conter um mínimo de',
         'properties' => 'propriedades',
         'Must contain no more than' => 'Não pode conter mais que',
         'Must be at most' => 'Deve ter no máximo',
@@ -63,16 +64,16 @@ class TranslateJsonValidation
         'Must be at least' => 'Deve ter pelo menos',
         'Does not match the regex pattern' => 'Não corresponde ao padrão',
         'an integer' => 'um inteiro',
-        'a number' => 'um numero',
-        'a boolean' => 'um boleano',
+        'a number' => 'um número',
+        'a boolean' => 'um booleano',
         'an object' => 'um objeto',
         'an array' => 'um array',
         'a string' => 'uma string',
         'a null' => 'um null',
-        'value found, but' => 'encontrado, mas',
-        'is required' => 'é obrigatório',
+        'value found, but' => 'encontrado, mas o esperado é',
+        ' is required' => '',
         'No wording for' => 'Nenhuma redação para',
-        'available, expected wordings are:' => 'está disponivel, as redações esperadas são:',
+        'available, expected wordings are:' => 'está disponível, as redações esperadas são:',
         'is an invalid type for' => 'é um tipo inválido para',
         'Disallowed value was matched' => 'O valor não permitido foi correspondido',
         'Matched a schema which it should not' => 'Correspondeu a um esquema que não deveria',
@@ -93,6 +94,9 @@ class TranslateJsonValidation
      */
     public static function translate($message)
     {
+        // "is required" também fecha o erro de tipo ("..., but a string is required"): o campo
+        // obrigatório é traduzido antes, com o gênero de "a propriedade".
+        $message = preg_replace('/The property (\S+) is required/', 'A propriedade $1 é obrigatória', $message);
         foreach (self::$frases as $key => $value) {
             $message = str_replace($key, $value, $message);
         }

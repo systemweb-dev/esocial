@@ -6,6 +6,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.2 - 2026-10-16
+
+### Fixed
+- Validation messages in pt-BR: "A propriedade X é obrigatória" (was "é obrigatório"); type errors read "X encontrado, mas o esperado é uma string" for any type; "Invalid date-time" is no longer cut by the "Invalid date" rule; spelling and accents (para, repetições, número, booleano, mínimo, múltiplo, divisível, disponível).
+
 ## 2.0.1 - 2026-10-16
 
 ### Fixed
