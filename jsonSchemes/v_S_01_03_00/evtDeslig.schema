@@ -79,7 +79,7 @@
             "type": ["string","null"],
             "pattern": "^.{20}$"
         },
-        "infoInterm": {
+        "infointerm": {
             "required": false,
             "type": ["array", "null"],
             "minItems": 0,

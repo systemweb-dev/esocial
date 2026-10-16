@@ -41,3 +41,14 @@ it('recusa indCPFDesvinc diferente de 9', function () {
 
     new EvtDeslig($this->configJson, $std, $this->certificate, '2026-08-01 10:00:00');
 })->throws(Exception::class, 'mudancacpf.indcpfdesvinc');
+
+/*
+ * Regressão: o JSON schema declarava "infoInterm" e a entrada vira minúscula antes de validar,
+ * então o limite de 31 dias do grupo nunca era conferido na entrada.
+ */
+it('recusa infoInterm com mais de 31 dias', function () {
+    $std = desligPayload(['novocpf' => '10987654321']);
+    $std->infointerm = array_fill(0, 32, (object) ['dia' => 1]);
+
+    new EvtDeslig($this->configJson, $std, $this->certificate, '2026-08-01 10:00:00');
+})->throws(Exception::class, 'infointerm');

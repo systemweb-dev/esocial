@@ -115,8 +115,8 @@ trait TraitS2416
             $this->dom->addChild(
                 $suspensao,
                 "dscSuspensao",
-                !empty($this->std->suspensao->dscssuspensao)
-                    ? $this->std->suspensao->dscssuspensao
+                !empty($this->std->suspensao->dscsuspensao)
+                    ? $this->std->suspensao->dscsuspensao
                     : null,
                 false
             );
@@ -271,8 +271,8 @@ trait TraitS2416
             $this->dom->addChild(
                 $suspensao,
                 "dscSuspensao",
-                !empty($this->std->suspensao->dscssuspensao)
-                    ? $this->std->suspensao->dscssuspensao
+                !empty($this->std->suspensao->dscsuspensao)
+                    ? $this->std->suspensao->dscsuspensao
                     : null,
                 false
             );

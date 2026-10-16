@@ -92,7 +92,7 @@
                     "type": "string",
                     "pattern": "^(01|99)$"
                 },
-                "dscSuspensao": {
+                "dscsuspensao": {
                     "required": false,
                     "type": ["string","null"],
                     "pattern": "^.{1,255}$"

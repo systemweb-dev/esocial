@@ -6,6 +6,14 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.1 - 2026-10-16
+
+### Fixed
+- S-1270: `indGuia` is optional (`minOccurs="0"` in the XSD); without it the builder wrote an empty `<indGuia/>` and the XML was rejected.
+- S-2416: `dscSuspensao` was read from the misspelled key `dscssuspensao` and never reached the XML.
+- S-1299: `evtComProd` (required by the XSD) is declared in the JSON schema; before, a missing value only failed in the XSD validation.
+- JSON schemas of S-2416 (`dscSuspensao`), S-2210 (`dscCompLesao`) and S-2299 (`infoInterm`) declared mixed-case keys, so their rules were never applied (the input is lowercased before validation). A test now requires lowercase keys in every schema.
+
 ## 2.0.0 - 2026-10-14
 
 First release of the System Web fork. Breaking changes from the upstream 1.0.x API are listed
