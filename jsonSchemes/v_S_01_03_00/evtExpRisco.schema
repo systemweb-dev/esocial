@@ -110,7 +110,7 @@
                         "required": false,
                         "type": ["number","null"]
                     },
-                    "umed": {
+                    "unmed": {
                         "required": false,
                         "type": ["integer","null"],
                         "minimum": 1,

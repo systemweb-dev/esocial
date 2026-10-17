@@ -809,6 +809,12 @@
                                                                                 "vrrubr": {
                                                                                     "required": true,
                                                                                     "type": "number"
+                                                                                },
+                                                                                "indapurir": {
+                                                                                    "required": false,
+                                                                                    "type": ["integer","null"],
+                                                                                    "minimum": 0,
+                                                                                    "maximum": 1
                                                                                 }
                                                                             }
                                                                         }

@@ -265,35 +265,38 @@
                                                         "minItems": 1,
                                                         "maxItems": 200,
                                                         "items": {
-                                                            "codrubr": {
-                                                                "required": true,
-                                                                "type": "string",
-                                                                "minLength": 1,
-                                                                "maxLength": 30
-                                                            },
-                                                            "idetabrubr": {
-                                                                "required": true,
-                                                                "type": "string",
-                                                                "minLength": 1,
-                                                                "maxLength": 8
-                                                            },
-                                                            "qtdrubr": {
-                                                                "required": false,
-                                                                "type": ["number","null"]
-                                                            },
-                                                            "fatorrubr": {
-                                                                "required": false,
-                                                                "type": ["number","null"]
-                                                            },
-                                                            "vrrubr": {
-                                                                "required": true,
-                                                                "type": "number"
-                                                            },
-                                                            "indapurir": {
-                                                                "required": true,
-                                                                "type": "integer",
-                                                                "minimum": 0,
-                                                                "maximum": 1
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "codrubr": {
+                                                                    "required": true,
+                                                                    "type": "string",
+                                                                    "minLength": 1,
+                                                                    "maxLength": 30
+                                                                },
+                                                                "idetabrubr": {
+                                                                    "required": true,
+                                                                    "type": "string",
+                                                                    "minLength": 1,
+                                                                    "maxLength": 8
+                                                                },
+                                                                "qtdrubr": {
+                                                                    "required": false,
+                                                                    "type": ["number","null"]
+                                                                },
+                                                                "fatorrubr": {
+                                                                    "required": false,
+                                                                    "type": ["number","null"]
+                                                                },
+                                                                "vrrubr": {
+                                                                    "required": true,
+                                                                    "type": "number"
+                                                                },
+                                                                "indapurir": {
+                                                                    "required": true,
+                                                                    "type": "integer",
+                                                                    "minimum": 0,
+                                                                    "maximum": 1
+                                                                }
                                                             }
                                                         }
                                                     }

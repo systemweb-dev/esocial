@@ -19,6 +19,12 @@
             "type": ["string","null"],
             "$ref": "#/definitions/recibo"
         },
+        "indguia": {
+            "required": false,
+            "type": ["integer","null"],
+            "minimum": 1,
+            "maximum": 1
+        },
         "perapur": {
             "required": true,
             "type": "string",
@@ -100,6 +106,10 @@
                                                         "type": "number"
                                                     },
                                                     "vrcpdescpr": {
+                                                        "required": true,
+                                                        "type": "number"
+                                                    },
+                                                    "vrratdescpr": {
                                                         "required": true,
                                                         "type": "number"
                                                     },

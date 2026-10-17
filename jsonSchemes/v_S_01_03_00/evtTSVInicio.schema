@@ -329,7 +329,7 @@
             "minimum": 1,
             "maximum": 2
         },
-        "cargoduncao": {
+        "cargofuncao": {
             "required": false,
             "type": ["object","null"],
             "properties": {

@@ -99,3 +99,17 @@ function caughtException(callable $act): ?Throwable
 
     return null;
 }
+
+/**
+ * O stdClass do exemplo: o trecho entre "$std = new" e o "try" que monta o evento (só atribuições).
+ */
+function exampleInput(string $file): stdClass
+{
+    $source = file_get_contents($file);
+    $start = strpos($source, '$std = new');
+    $end = strpos($source, "\ntry", $start);
+    $std = null;
+    eval(substr($source, $start, $end - $start));
+
+    return $std;
+}

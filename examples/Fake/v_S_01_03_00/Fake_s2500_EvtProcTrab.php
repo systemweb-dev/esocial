@@ -49,10 +49,10 @@ $std->infoprocjud->idvara = '12';
 // infoPatPrec: obrigatório e exclusivo se origem = 3 (Justiça Comum)
 $std->infoprocjud->infopatprec = null; //Opcional (obrigatório se $std->origem = 3)
 
-$std->infocccp = new \stdClass();
-$std->infocccp->dtccp = '2022-12-03';
-$std->infocccp->tpccp = 1;
-$std->infocccp->cnpjccp = '12345678901234';
+$std->infoccp = new \stdClass();
+$std->infoccp->dtccp = '2022-12-03';
+$std->infoccp->tpccp = 1;
+$std->infoccp->cnpjccp = '12345678901234';
 
 $std->cpftrab = '12345678901'; //obrigatório
 $std->nmtrab = 'Fulano da Silva'; //opcional
@@ -97,7 +97,7 @@ $std->infocontr[0]->infocompl->remuneracao[0] = new \stdClass(); //opcional 0 a 
 $std->infocontr[0]->infocompl->remuneracao[0]->dtremun = '2022-12-15'; //Obrigatório
 $std->infocontr[0]->infocompl->remuneracao[0]->vrsalfx = 2500.00; //Obrigatório
 $std->infocontr[0]->infocompl->remuneracao[0]->undsalfixo = 5; //Obrigatório
-$std->infocontr[0]->infocompl->remuneracao[0]->descsalvar = 'bla bla bla'; //opcional
+$std->infocontr[0]->infocompl->remuneracao[0]->dscsalvar = 'bla bla bla'; //opcional
 
 $std->infocontr[0]->infocompl->infovinc = new \stdClass(); //opcional
 $std->infocontr[0]->infocompl->infovinc->tpregtrab = 1;

@@ -191,7 +191,7 @@
                 }
             }
         },
-        "deficiencia": {
+        "infodeficiencia": {
             "required": false,
             "type": ["object","null"],
             "properties": {
@@ -266,7 +266,7 @@
                         "type": ["string","null"],
                         "pattern": "^[0-9]{11}$"
                     },
-                    "depsf": {
+                    "depirrf": {
                         "required": true,
                         "type": "string",
                         "pattern": "^(S|N)$"
@@ -347,6 +347,12 @@
                             "required": true,
                             "type": "string",
                             "$ref": "#/definitions/data"
+                        },
+                        "matanotjud": {
+                            "required": false,
+                            "type": ["string","null"],
+                            "minLength": 1,
+                            "maxLength": 30
                         },
                         "tpadmissao": {
                             "required": true,

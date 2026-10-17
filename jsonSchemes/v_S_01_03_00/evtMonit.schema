@@ -137,31 +137,31 @@
                             }
                         }
                     }
-                }
-            },
-            "respmonit": {
-                "required": false,
-                "type": ["object","null"],
-                "properties": {
-                    "cpfresp": {
-                        "required": false,
-                        "type": ["string","null"],
-                        "pattern": "^[0-9]{11}$"
-                    },
-                    "nmresp": {
-                        "required": false,
-                        "type": ["string","null"],
-                        "maxLength": 70
-                    },
-                    "nrcrm": {
-                        "required": false,
-                        "type": ["string","null"],
-                        "maxLength": 10
-                    },
-                    "ufcrm": {
-                        "required": false,
-                        "type": ["string","null"],
-                        "maxLength": 2
+                },
+                "respmonit": {
+                    "required": false,
+                    "type": ["object","null"],
+                    "properties": {
+                        "cpfresp": {
+                            "required": false,
+                            "type": ["string","null"],
+                            "pattern": "^[0-9]{11}$"
+                        },
+                        "nmresp": {
+                            "required": false,
+                            "type": ["string","null"],
+                            "maxLength": 70
+                        },
+                        "nrcrm": {
+                            "required": false,
+                            "type": ["string","null"],
+                            "maxLength": 10
+                        },
+                        "ufcrm": {
+                            "required": false,
+                            "type": ["string","null"],
+                            "maxLength": 2
+                        }
                     }
                 }
             }

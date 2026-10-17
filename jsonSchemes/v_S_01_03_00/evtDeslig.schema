@@ -525,7 +525,7 @@
                         }
                     }
                 },
-                "procs": {
+                "proccs": {
                     "required": false,
                     "type": ["object","null"],
                     "properties": {

@@ -43,6 +43,12 @@
                     "required": false,
                     "type": ["string","null"],
                     "$ref": "#/definitions/periodo"
+                },
+                "ideseqproc": {
+                    "required": false,
+                    "type": ["integer","null"],
+                    "minimum": 1,
+                    "maximum": 999
                 }
             }
         }

@@ -6,6 +6,15 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.3 - 2026-10-16
+
+### Fixed
+- JSON schemas now declare the fields the S-1.3 builders read, with the XSD names: S-2200 `infodeficiencia` (was `deficiencia`), `dependente[].depirrf` (the key was a duplicated `depsf`) and `infoceletista.matanotjud`; S-2299 `verbasresc.proccs` (was `procs`); S-2240 `agnoc[].unmed` (was `umed`); S-2300 `cargofuncao` (was `cargoduncao`); S-2306 `mandelet` (was `mandelelt`); S-2500 `duracao.clauassec` (was `clouassec`); S-2220 `exmedocup.respmonit` (was outside `properties`, so never checked); S-1260 `indguia` and `nfs[].vrratdescpr`; S-2400 `nrrecibo`; S-3500 `ideproctrab.ideseqproc`; S-1200 `indapurir` in `remunperant.itensremun`. With the old names the group was silently dropped from the XML.
+- S-1207: the items of `infoperant…itensremun` had no `type`/`properties` wrapper, so none of their rules were applied.
+- S-1260: `indguia` read with `?? null` (no undefined-property warning when absent).
+- S-2500 example: `infoccp` and `dscsalvar` (were `infocccp` and `descsalvar`).
+- New test: every field used by an example must be declared in the event's JSON schema, and the fixed groups must reach the XML.
+
 ## 2.0.2 - 2026-10-16
 
 ### Fixed
