@@ -1644,45 +1644,47 @@ trait TraitS2500
                         );
                         $infoVinc->appendChild($sucessaoVinc);
                     }
-                    $des = $vinc->infodeslig;
-                    $infoDeslig = $this->dom->createElement("infoDeslig");
-                    $this->dom->addChild(
-                        $infoDeslig,
-                        "dtDeslig",
-                        $des->dtdeslig,
-                        true
-                    );
-                    $this->dom->addChild(
-                        $infoDeslig,
-                        "mtvDeslig",
-                        $des->mtvdeslig,
-                        true
-                    );
-                    $this->dom->addChild(
-                        $infoDeslig,
-                        "dtProjFimAPI",
-                        $des->dtprojfimapi ?? null,
-                        false
-                    );
-                    $this->dom->addChild(
-                        $infoDeslig,
-                        "pensAlim",
-                        $des->pensalim ?? null,
-                        false
-                    );
-                    $this->dom->addChild(
-                        $infoDeslig,
-                        "percAliment",
-                        $des->percaliment ?? null,
-                        false
-                    );
-                    $this->dom->addChild(
-                        $infoDeslig,
-                        "vrAlim",
-                        $des->vralim ?? null,
-                        false
-                    );
-                    $infoVinc->appendChild($infoDeslig);
+                    if (!empty($vinc->infodeslig)) {
+                        $des = $vinc->infodeslig;
+                        $infoDeslig = $this->dom->createElement("infoDeslig");
+                        $this->dom->addChild(
+                            $infoDeslig,
+                            "dtDeslig",
+                            $des->dtdeslig,
+                            true
+                        );
+                        $this->dom->addChild(
+                            $infoDeslig,
+                            "mtvDeslig",
+                            $des->mtvdeslig,
+                            true
+                        );
+                        $this->dom->addChild(
+                            $infoDeslig,
+                            "dtProjFimAPI",
+                            $des->dtprojfimapi ?? null,
+                            false
+                        );
+                        $this->dom->addChild(
+                            $infoDeslig,
+                            "pensAlim",
+                            $des->pensalim ?? null,
+                            false
+                        );
+                        $this->dom->addChild(
+                            $infoDeslig,
+                            "percAliment",
+                            $des->percaliment ?? null,
+                            false
+                        );
+                        $this->dom->addChild(
+                            $infoDeslig,
+                            "vrAlim",
+                            $des->vralim ?? null,
+                            false
+                        );
+                        $infoVinc->appendChild($infoDeslig);
+                    }
                     $icom->appendChild($infoVinc);
                 }
                 if (!empty($icl->infoterm)) {

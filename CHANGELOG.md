@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.5 - 2026-10-18
+
+### Fixed
+- S-1299: the `infofech` group is required (it has no `minOccurs` in the XSD); before, a missing group only failed in the XSD validation.
+- S-2500: `infovinc.infodeslig` is optional (0-1 in the XSD; the government requires it when `tpContr` is not 8); the builder only writes the group when it is informed.
+
 ## 2.0.4 - 2026-10-18
 
 ### Fixed

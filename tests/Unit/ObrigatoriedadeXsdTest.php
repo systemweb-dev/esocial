@@ -41,6 +41,7 @@ it('aceita o evento sem o campo que o XSD deixa opcional', function (string $cod
     'S-2300 CBOFuncao' => ['s2300', 'cargofuncao.cbofuncao'],
     'S-2400 tpDep' => ['s2400', 'dependente.tpdep'],
     'S-2405 tpDep' => ['s2405', 'dadosbenef.dependente.tpdep'],
+    'S-2500 infoDeslig' => ['s2500', 'infocontr.infocompl.infovinc.infodeslig'],
     'S-2501 codSusp' => ['s2501', 'idetrab.infocrirrf.infoprocret.codsusp'],
 ]);
 
@@ -53,6 +54,7 @@ it('recusa o evento sem o campo que o XSD exige', function (string $code, string
 })->with([
     'S-1200 codSusp' => ['s1200', 'procjudtrab.codsusp'],
     'S-1200 vrRubr' => ['s1200', 'dmdev.ideestablot.remunperapur.itensremun.vrrubr'],
+    'S-1299 infoFech' => ['s1299', 'infofech'],
     'S-2200 nrProcJud' => ['s2200', 'vinculo.infocontrato.alvarajudicial.nrprocjud'],
     'S-2200 matricAnt' => ['s2200', 'vinculo.mudancacpf.matricant'],
     'S-2206 nrProcJud' => ['s2206', 'infocontrato.alvarajudicial.nrprocjud'],
