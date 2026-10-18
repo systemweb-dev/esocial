@@ -156,3 +156,23 @@ it('recusa tpInsc 2 no localTrabGeral', function () {
 
     new EvtProcTrab($this->configJson, $std, $this->certificate, '2026-08-01 10:00:00');
 })->throws(Exception::class, 'localtrabgeral.tpinsc');
+
+it('emite dtTerm da duração do contrato', function () {
+    $std = exampleInput(exampleFile('s2500'));
+    $event = new EvtProcTrab($this->configJson, $std, $this->certificate, '2026-10-18 10:00:00');
+
+    $document = eventDocument($event);
+
+    expect(childElementNames($document->getElementsByTagName('duracao')->item(0)))
+        ->toBe(['tpContr', 'dtTerm', 'clauAssec', 'objDet']);
+});
+
+it('emite mudCategAtiv e unicContr sem infoCompl', function () {
+    $std = withoutField(exampleInput(exampleFile('s2500')), 'infocontr.infocompl');
+    $event = new EvtProcTrab($this->configJson, $std, $this->certificate, '2026-10-18 10:00:00');
+
+    $document = eventDocument($event);
+
+    expect($document->getElementsByTagName('mudCategAtiv')->length)->toBe(1)
+        ->and($document->getElementsByTagName('unicContr')->length)->toBe(1);
+});

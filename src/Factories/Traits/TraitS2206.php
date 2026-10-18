@@ -740,8 +740,8 @@ trait TraitS2206
             $this->dom->addChild(
                 $localDomestico,
                 "tpLograd",
-                $ld->tplograd,
-                true
+                $ld->tplograd ?? null,
+                false
             );
             $this->dom->addChild(
                 $localDomestico,
@@ -796,8 +796,8 @@ trait TraitS2206
             $this->dom->addChild(
                 $horContratual,
                 "qtdHrsSem",
-                $hc->qtdhrssem,
-                true
+                $hc->qtdhrssem ?? null,
+                false
             );
             $this->dom->addChild(
                 $horContratual,

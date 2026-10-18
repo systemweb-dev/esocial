@@ -233,7 +233,7 @@
                         }
                     }
                 },
-                "supervisor": {
+                "supervisorestagio": {
                     "required": false,
                     "type": ["object","null"],
                     "properties": {

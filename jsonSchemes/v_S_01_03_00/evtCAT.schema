@@ -78,7 +78,7 @@
             "pattern": "^(S|N)$"
         },
         "codsitgeradora": {
-            "required": false,
+            "required": true,
             "type": ["string","null"],
             "pattern": "^[0-9]{9}$"
         },
@@ -95,12 +95,12 @@
             "maxLength": 999
         },
         "ultdiatrab": {
-            "required": true,
+            "required": false,
             "type": "string",
             "$ref": "#/definitions/data"
         },
         "houveafast": {
-            "required": true,
+            "required": false,
             "type": "string",
             "pattern": "^(S|N)$"
         },
@@ -219,7 +219,7 @@
             }
         },
         "atestado": {
-            "required": false,
+            "required": true,
             "type": ["object","null"],
             "properties": {
                 "dtatendimento": {
@@ -249,7 +249,7 @@
                     "pattern": "^(S|N)$"
                 },
                 "dsclesao": {
-                    "required": false,
+                    "required": true,
                     "type": ["string","null"],
                     "pattern": "^[0-9]{9}$"
                 },
@@ -296,7 +296,7 @@
                     "maxLength": 14
                 },
                 "ufoc": {
-                    "required": true,
+                    "required": false,
                     "type": "string",
                     "$ref": "#/definitions/siglauf"
                 }

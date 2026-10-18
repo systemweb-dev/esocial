@@ -200,7 +200,7 @@
                                     "$ref": "#/definitions/data"
                                 },
                                 "nome": {
-                                    "required": true,
+                                    "required": false,
                                     "type": "string",
                                     "minLength": 2,
                                     "maxLength": 70
@@ -343,7 +343,7 @@
                                                 "pattern": "^([0-9]{17}|[0-9]{20}|[0-9]{21})$"
                                             },
                                             "codsusp": {
-                                                "required": true,
+                                                "required": false,
                                                 "type": "string",
                                                 "pattern": "^[0-9]{1,14}$"
                                             },

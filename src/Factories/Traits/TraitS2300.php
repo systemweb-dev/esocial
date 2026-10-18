@@ -1730,7 +1730,9 @@ trait TraitS2300
             );
             $endereco->appendChild($exterior);
         }
-        $trabalhador->appendChild($endereco);
+        if ($endereco->hasChildNodes()) {
+            $trabalhador->appendChild($endereco);
+        }
 
         if (!empty($this->std->trabimig)) {
             $trabimig = $this->dom->createElement("trabImig");
@@ -1803,8 +1805,8 @@ trait TraitS2300
                 $this->dom->addChild(
                     $dependente,
                     "tpDep",
-                    $dep->tpdep,
-                    true
+                    $dep->tpdep ?? null,
+                    false
                 );
                 $this->dom->addChild(
                     $dependente,

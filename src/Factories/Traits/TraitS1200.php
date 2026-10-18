@@ -1931,8 +1931,8 @@ trait TraitS1200
                         $this->dom->addChild(
                             $adv,
                             "vlrAdv",
-                            $idadv->vlradv,
-                            true
+                            $idadv->vlradv ?? null,
+                            false
                         );
                         $ifrra->appendChild($adv);
                     }

@@ -134,14 +134,14 @@ trait TraitS2210
         $this->dom->addChild(
             $cat,
             "ultDiaTrab",
-            $this->std->ultdiatrab,
-            true
+            $this->std->ultdiatrab ?? null,
+            false
         );
         $this->dom->addChild(
             $cat,
             "houveAfast",
-            $this->std->houveafast,
-            true
+            $this->std->houveafast ?? null,
+            false
         );
         $localAcidente = $this->dom->createElement("localAcidente");
         $this->dom->addChild(
@@ -346,8 +346,8 @@ trait TraitS2210
             $this->dom->addChild(
                 $emitente,
                 "ufOC",
-                $ate->ufoc,
-                true
+                $ate->ufoc ?? null,
+                false
             );
             $atestado->appendChild($emitente);
             $cat->appendChild($atestado);

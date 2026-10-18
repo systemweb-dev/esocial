@@ -112,7 +112,7 @@ trait TraitS2190
             $this->dom->addChild(
                 $infoRegCTPS,
                 "dtTerm",
-                !empty($info->dtTerm) ? $info->dtTerm : null,
+                !empty($info->dtterm) ? $info->dtterm : null,
                 false
             );
             $infoRegPrelim->appendChild($infoRegCTPS);

@@ -75,6 +75,8 @@ it('leva ao XML o grupo que o exemplo informa', function (string $code, string $
     'S-2299 procCS' => ['s2299', 'procCS'],
     'S-2300 cargoFuncao' => ['s2300', 'cargoFuncao'],
     'S-2306 infoMandElet' => ['s2306', 'infoMandElet'],
+    'S-2306 supervisorEstagio' => ['s2306', 'supervisorEstagio'],
+    'S-2399 indGuia' => ['s2399', 'indGuia'],
     'S-2500 dscSalVar' => ['s2500', 'dscSalVar'],
     'S-2500 clauAssec' => ['s2500', 'clauAssec'],
     'S-3500 ideSeqProc' => ['s3500', 'ideSeqProc'],

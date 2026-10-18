@@ -213,7 +213,7 @@
                                 "pattern": "^.{20}$"
                             },
                             "codsusp": {
-                                "required": false,
+                                "required": true,
                                 "type": ["string","null"],
                                 "pattern": "^[0-9]{1,14}$"
                             }

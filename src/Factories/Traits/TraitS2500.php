@@ -1586,7 +1586,7 @@ trait TraitS2500
                         $this->dom->addChild(
                             $duracao,
                             "dtTerm",
-                            $dur->dtrerm ?? null,
+                            $dur->dtterm ?? null,
                             false
                         );
                         $this->dom->addChild(
@@ -1784,53 +1784,53 @@ trait TraitS2500
                     $icom->appendChild($localTrabalho);
                 }
                 $infoctr->appendChild($icom);
-                if (!empty($ictr->mudcategativ)) {
-                    foreach ($ictr->mudcategativ as $mud) {
-                        $mudCategAtiv = $this->dom->createElement("mudCategAtiv");
-                        $this->dom->addChild(
-                            $mudCategAtiv,
-                            "codCateg",
-                            $mud->codcateg,
-                            true
-                        );
-                        $this->dom->addChild(
-                            $mudCategAtiv,
-                            "natAtividade",
-                            $mud->natatividade ?? null,
-                            false
-                        );
-                        $this->dom->addChild(
-                            $mudCategAtiv,
-                            "dtMudCategAtiv",
-                            $mud->dtmudcategativ,
-                            true
-                        );
-                        $infoctr->appendChild($mudCategAtiv);
-                    }
+            }
+            if (!empty($ictr->mudcategativ)) {
+                foreach ($ictr->mudcategativ as $mud) {
+                    $mudCategAtiv = $this->dom->createElement("mudCategAtiv");
+                    $this->dom->addChild(
+                        $mudCategAtiv,
+                        "codCateg",
+                        $mud->codcateg,
+                        true
+                    );
+                    $this->dom->addChild(
+                        $mudCategAtiv,
+                        "natAtividade",
+                        $mud->natatividade ?? null,
+                        false
+                    );
+                    $this->dom->addChild(
+                        $mudCategAtiv,
+                        "dtMudCategAtiv",
+                        $mud->dtmudcategativ,
+                        true
+                    );
+                    $infoctr->appendChild($mudCategAtiv);
                 }
-                if (!empty($ictr->uniccontr)) {
-                    foreach ($ictr->uniccontr as $uni) {
-                        $unicContr = $this->dom->createElement("unicContr");
-                        $this->dom->addChild(
-                            $unicContr,
-                            "matUnic",
-                            $uni->matunic ?? null,
-                            false
-                        );
-                        $this->dom->addChild(
-                            $unicContr,
-                            "codCateg",
-                            $uni->codcateg ?? null,
-                            false
-                        );
-                        $this->dom->addChild(
-                            $unicContr,
-                            "dtInicio",
-                            $uni->dtinicio ?? null,
-                            false
-                        );
-                        $infoctr->appendChild($unicContr);
-                    }
+            }
+            if (!empty($ictr->uniccontr)) {
+                foreach ($ictr->uniccontr as $uni) {
+                    $unicContr = $this->dom->createElement("unicContr");
+                    $this->dom->addChild(
+                        $unicContr,
+                        "matUnic",
+                        $uni->matunic ?? null,
+                        false
+                    );
+                    $this->dom->addChild(
+                        $unicContr,
+                        "codCateg",
+                        $uni->codcateg ?? null,
+                        false
+                    );
+                    $this->dom->addChild(
+                        $unicContr,
+                        "dtInicio",
+                        $uni->dtinicio ?? null,
+                        false
+                    );
+                    $infoctr->appendChild($unicContr);
                 }
             }
             $idestab = $ictr->ideestab;

@@ -6,6 +6,15 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.4 - 2026-10-18
+
+### Fixed
+- JSON schemas follow the occurrence of the XSD and the layout, relative to the parent group. Optional in the XSD, no longer refused by the lib (the conditional rule is left to the government): S-1200/S-1202 `ideadv.vlradv`; S-1210 `infodep.nome` and `infoprocret.codsusp`; S-2200 `endereco`, `trabimig.tmpresid`, `dependente[].tpdep` and `inctrab`; S-2205 `endereco`, `exterior.codpostal`, `dependente[].tpdep` and `inctrab`; S-2206 `localtempdom.tplograd` and `horcontratual.qtdhrssem`; S-2210 `ultdiatrab`, `houveafast` and `atestado.ufoc`; S-2299 `ideadc.dtacconv`; S-2300 `endereco`, `exterior.codpostal`, `dependente[].tpdep` and `cargofuncao.cbocargo`/`cbofuncao`; S-2400/S-2405 `dependente[].tpdep`; S-2501 `infoprocret.codsusp`. The builders of these fields (and of `endereco`) no longer write an empty tag when they are absent. Required in the XSD, now refused before building: S-1200 `procjudtrab.codsusp` and `itensremun.vrrubr`; S-2200/S-2206 `alvarajudicial.nrprocjud`; S-2200 `mudancacpf.matricant`; S-2210 `codsitgeradora`, `atestado` and `atestado.dsclesao`; S-2220 `exame.procrealizado`, `medico.nmmed` and `respmonit.nmresp`/`nrcrm`/`ufcrm`; S-2231 `matricula`; S-2240 `epi[].docaval`; S-2300 `fgts.dtopcfgts` and `infodirigentesindical.tpregprev`; S-2399 `procjudtrab.codsusp`.
+- JSON schemas no longer declare fields the S-1.3 layout does not have or the builder never reads: S-1200 `dmdev.infoperapur` and `dmdev.infoperant` (the builder reads `dmdev.ideestablot` and `dmdev.ideadc`), `detoper`, `infotrabinterm`, `compacconv` and `dtefacconv`; S-2220 `medico.cpfmed`/`nismed`; S-2240 `epi[].dscepi`. S-2306 `estagiario.supervisorestagio` (was `supervisor`, so the group was silently dropped).
+- S-2190: `dtTerm` was read from the camelCase key and never reached the XML.
+- S-2399: `indGuia` is written in `ideEvento`.
+- S-2500: `duracao.dtTerm` was read from the misspelled key `dtrerm`; `mudCategAtiv` and `unicContr` were only written when `infoCompl` was informed.
+
 ## 2.0.3 - 2026-10-16
 
 ### Fixed

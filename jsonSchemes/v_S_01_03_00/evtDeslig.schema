@@ -328,7 +328,7 @@
                                             "type": "object",
                                             "properties": {
                                                 "dtacconv": {
-                                                    "required": true,
+                                                    "required": false,
                                                     "type": "string",
                                                     "$ref": "#/definitions/data"
                                                 },

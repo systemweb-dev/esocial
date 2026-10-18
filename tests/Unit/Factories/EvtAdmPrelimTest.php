@@ -43,3 +43,15 @@ it('recusa data de admissão anterior a 1900', function () {
 
     new EvtAdmPrelim($this->configJson, $std, $this->certificate, '2017-08-03 10:37:00');
 })->throws(Exception::class, '[dtadm] Não corresponde ao padrão');
+
+it('emite dtTerm em infoRegCTPS quando informado', function () {
+    $std = exampleInput(exampleFile('s2190'));
+    $std->inforegctps->tpcontr = 2;
+    $std->inforegctps->dtterm = '2027-04-11';
+    $event = new EvtAdmPrelim($this->configJson, $std, $this->certificate, '2026-10-18 10:00:00');
+
+    $document = eventDocument($event);
+
+    expect($document->getElementsByTagName('infoRegCTPS')->item(0)->lastElementChild->localName)->toBe('dtTerm')
+        ->and($document->getElementsByTagName('dtTerm')->item(0)->textContent)->toBe('2027-04-11');
+});

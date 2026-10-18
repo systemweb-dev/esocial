@@ -52,8 +52,6 @@ $std->exmedocup->aso->exame[0]->ordexame = 1;
 $std->exmedocup->aso->exame[0]->indresult = 1;
 
 $std->exmedocup->aso->medico = new \stdClass();
-$std->exmedocup->aso->medico->cpfmed = '12345678901';
-$std->exmedocup->aso->medico->nismed = '12345678901';
 $std->exmedocup->aso->medico->nmmed = 'NOME DO MEDICO';
 $std->exmedocup->aso->medico->nrcrm = '12345678';
 $std->exmedocup->aso->medico->ufcrm = 'SP';

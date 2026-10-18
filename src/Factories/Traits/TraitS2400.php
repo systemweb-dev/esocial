@@ -469,8 +469,8 @@ trait TraitS2400
                 $this->dom->addChild(
                     $dependente,
                     "tpDep",
-                    $dep->tpdep,
-                    true
+                    $dep->tpdep ?? null,
+                    false
                 );
                 $this->dom->addChild(
                     $dependente,

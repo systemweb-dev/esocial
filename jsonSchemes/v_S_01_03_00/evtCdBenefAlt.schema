@@ -162,7 +162,7 @@
                         "type": "object",
                         "properties": {
                             "tpdep": {
-                                "required": true,
+                                "required": false,
                                 "type": "string",
                                 "pattern": "^0[1-9]{1}|1[0-2]{1}|99$"
                             },

@@ -1922,8 +1922,8 @@ trait TraitS2299
                         $this->dom->addChild(
                             $ideADC,
                             "dtAcConv",
-                            $adc->dtacconv,
-                            true
+                            $adc->dtacconv ?? null,
+                            false
                         );
                         $this->dom->addChild(
                             $ideADC,

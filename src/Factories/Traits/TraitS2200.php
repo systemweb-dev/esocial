@@ -1207,7 +1207,9 @@ trait TraitS2200
             );
             $endereco->appendChild($exterior);
         }
-        $trabalhador->appendChild($endereco);
+        if ($endereco->hasChildNodes()) {
+            $trabalhador->appendChild($endereco);
+        }
 
         if (isset($this->std->trabimig)) {
             $ex = $this->std->trabimig;
@@ -1215,8 +1217,8 @@ trait TraitS2200
             $this->dom->addChild(
                 $trabImig,
                 "tmpResid",
-                $ex->tmpresid,
-                true
+                $ex->tmpresid ?? null,
+                false
             );
             $this->dom->addChild(
                 $trabImig,
@@ -1289,8 +1291,8 @@ trait TraitS2200
                 $this->dom->addChild(
                     $dependente,
                     "tpDep",
-                    $dep->tpdep,
-                    true
+                    $dep->tpdep ?? null,
+                    false
                 );
                 $this->dom->addChild(
                     $dependente,
@@ -1331,8 +1333,8 @@ trait TraitS2200
                 $this->dom->addChild(
                     $dependente,
                     "incTrab",
-                    $dep->inctrab,
-                    true
+                    $dep->inctrab ?? null,
+                    false
                 );
                 $this->dom->addChild(
                     $dependente,

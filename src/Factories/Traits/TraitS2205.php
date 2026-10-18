@@ -559,7 +559,9 @@ trait TraitS2205
             );
             $endereco->appendChild($exterior);
         }
-        $trabalhador->appendChild($endereco);
+        if ($endereco->hasChildNodes()) {
+            $trabalhador->appendChild($endereco);
+        }
         if (!empty($this->std->trabimig)) {
             $trabimig = $this->dom->createElement("trabImig");
             $this->dom->addChild(
@@ -635,8 +637,8 @@ trait TraitS2205
                 $this->dom->addChild(
                     $dependente,
                     "tpDep",
-                    $dep->tpdep,
-                    true
+                    $dep->tpdep ?? null,
+                    false
                 );
                 $this->dom->addChild(
                     $dependente,
@@ -677,8 +679,8 @@ trait TraitS2205
                 $this->dom->addChild(
                     $dependente,
                     "incTrab",
-                    $dep->inctrab,
-                    true
+                    $dep->inctrab ?? null,
+                    false
                 );
                 $this->dom->addChild(
                     $dependente,

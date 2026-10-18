@@ -241,7 +241,7 @@
                     "type": ["object","null"],
                     "properties": {
                         "tplograd": {
-                            "required": true,
+                            "required": false,
                             "type": "string",
                             "maxLength": 4
                         },
@@ -287,7 +287,7 @@
                     "type": ["object","null"],
                     "properties": {
                         "qtdhrssem": {
-                            "required": true,
+                            "required": false,
                             "type": "number",
                             "minimum": 0.1,
                             "maximum": 99.99
@@ -321,7 +321,7 @@
                     "type": ["object","null"],
                     "properties": {
                         "nrprocjud": {
-                            "required": false,
+                            "required": true,
                             "type": ["string","null"],
                             "pattern": "^.{20}$"
                         }

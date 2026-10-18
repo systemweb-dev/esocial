@@ -83,8 +83,8 @@ $std->estagiario->instensino->uf = "AC";
 $std->estagiario->ageintegracao = new \stdClass();
 $std->estagiario->ageintegracao->cnpjagntinteg = '11111111111111';
 
-$std->estagiario->supervisor = new \stdClass();
-$std->estagiario->supervisor->cpfsupervisor = '11111111111';
+$std->estagiario->supervisorestagio = new \stdClass();
+$std->estagiario->supervisorestagio->cpfsupervisor = '11111111111';
 
 $std->localtrabgeral = new \stdClass();
 $std->localtrabgeral->tpinsc = 1;

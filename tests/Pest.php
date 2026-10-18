@@ -113,3 +113,39 @@ function exampleInput(string $file): stdClass
 
     return $std;
 }
+
+/**
+ * Caminho do exemplo do evento (ex.: 's2200' → examples/Fake/v_S_01_03_00/Fake_s2200_EvtAdmissao.php).
+ */
+function exampleFile(string $code): string
+{
+    return current(glob(dirname(__DIR__) . "/examples/Fake/v_S_01_03_00/Fake_{$code}_*.php"));
+}
+
+/**
+ * Cópia do stdClass sem a chave do caminho (ex.: 'dependente.tpdep'), tirada de cada item dos arrays.
+ */
+function withoutField(stdClass $std, string $path): stdClass
+{
+    $copy = unserialize(serialize($std));
+    $remove = function ($node, array $keys) use (&$remove) {
+        if (is_array($node)) {
+            foreach ($node as $item) {
+                $remove($item, $keys);
+            }
+            return;
+        }
+        $key = array_shift($keys);
+        if (!is_object($node) || !property_exists($node, $key)) {
+            return;
+        }
+        if ($keys === []) {
+            unset($node->$key);
+            return;
+        }
+        $remove($node->$key, $keys);
+    };
+    $remove($copy, explode('.', $path));
+
+    return $copy;
+}

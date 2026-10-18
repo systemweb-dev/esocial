@@ -25,7 +25,7 @@
             "pattern": "^[0-9]{11}$"
         },
         "matricula": {
-            "required": false,
+            "required": true,
             "type": ["string","null"],
             "minLength": 1,
             "maxLength": 30

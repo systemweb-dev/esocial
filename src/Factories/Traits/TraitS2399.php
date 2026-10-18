@@ -598,6 +598,12 @@ trait TraitS2399
         );
         $this->dom->addChild(
             $ideEvento,
+            "indGuia",
+            $this->std->indguia ?? null,
+            false
+        );
+        $this->dom->addChild(
+            $ideEvento,
             "tpAmb",
             $this->tpAmb,
             true

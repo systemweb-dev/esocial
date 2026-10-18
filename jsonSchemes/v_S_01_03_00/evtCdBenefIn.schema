@@ -168,7 +168,7 @@
                 "type": "object",
                 "properties": {
                     "tpdep": {
-                       "required": true,
+                       "required": false,
                         "type": "string",
                         "pattern": "^[0-9]{2}$"
                     },

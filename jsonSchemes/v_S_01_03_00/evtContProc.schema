@@ -282,7 +282,7 @@
                                                 "pattern": "^(.{17}|.{20}|.{21})$"
                                             },
                                             "codsusp": {
-                                                "required": true,
+                                                "required": false,
                                                 "type": "string",
                                                 "pattern": "^(.{1,14})$"
                                             },

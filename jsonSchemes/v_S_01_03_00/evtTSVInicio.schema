@@ -74,7 +74,7 @@
             "pattern": "^[0-9]{3}$"
         },
         "endereco": {
-            "required": true,
+            "required": false,
             "type": "object",
             "properties": {
                 "brasil": {
@@ -158,7 +158,7 @@
                             "maxLength": 50
                         },
                         "codpostal": {
-                            "required": true,
+                            "required": false,
                             "type": ["string","null"],
                             "minLength": 4,
                             "maxLength": 12
@@ -236,7 +236,7 @@
                 "type": "object",
                 "properties": {
                     "tpdep": {
-                        "required": true,
+                        "required": false,
                         "type": "string",
                         "pattern": "^0[1-7]{1}|09|1[0-2]{1}|99$"
                     },
@@ -340,7 +340,7 @@
                     "maxLength": 100
                 },
                 "cbocargo": {
-                    "required": true,
+                    "required": false,
                     "type": "string",
                     "pattern": "^[0-9]{6}$"
                 },
@@ -351,7 +351,7 @@
                     "maxLength": 100
                 },
                 "cbofuncao": {
-                    "required": true,
+                    "required": false,
                     "type": "string",
                     "pattern": "^[0-9]{6}$"
                 }
@@ -384,7 +384,7 @@
             "type": ["object","null"],
             "properties": {
                 "dtopcfgts": {
-                    "required": false,
+                    "required": true,
                     "type": ["string","null"],
                     "$ref": "#/definitions/data"
                 }
@@ -428,7 +428,7 @@
                     "maximum": 2
                 },
                 "tpregprev": {
-                    "required": false,
+                    "required": true,
                     "type": ["integer","null"],
                     "minimum": 1,
                     "maximum": 3
