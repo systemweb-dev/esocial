@@ -6,6 +6,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.6 - 2026-10-24
+
+### Changed
+- S-2230: `evtAfastTemp.xsd` from the XSD packages republished with NT 07/2026 rev. 20/10/2026 (documentation only: `infoMesmoMtv` is required only when there is a previous leave with the same `codMotAfast` [01, 03] within 60 days; otherwise it may be omitted or `N`). The builder and the JSON schema already treat the field as optional.
+
 ## 2.0.5 - 2026-10-18
 
 ### Fixed
