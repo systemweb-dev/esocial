@@ -306,7 +306,7 @@ comunicação, Mensagens do Sistema).
 - A skill `update-esocial` (`.claude/skills/update-esocial/SKILL.md`) confere o
   [Portal do eSocial](https://www.gov.br/esocial/pt-br/documentacao-tecnica), aplica o pacote,
   compara os XSD, valida os exemplos e regenera [docs/eventos](docs/eventos/README.md).
-- Pacote publicado antes da data fica pronto num branch `xsd/<data>` (lista e data de merge em
+- Pacote publicado antes da data fica pronto num branch `feature/xsd-<data>` (lista e data de merge em
   `pending_packages`). O merge no `master` é feito na abertura da Produção Restrita.
 - **Versões (semver):** pacote de XSD ou campo novo = *minor* (`2.1.0`); correção = *patch*;
   remoção ou mudança incompatível = *major*. Use `"systemweb-dev/esocial": "^2.0"` e acompanhe o

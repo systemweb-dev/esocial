@@ -68,7 +68,7 @@ catálogo" e confira os textos fixos do MS0191/MS0266), e atualize `system_messa
 `ESOCIAL-VERSION.json`.
 
 ## 10. Pacotes prontos em branch
-Pacote preparado antes da data fica num branch `xsd/<data>` e em `pending_packages` do
+Pacote preparado antes da data fica num branch `feature/xsd-<data>` e em `pending_packages` do
 `ESOCIAL-VERSION.json`. Na data de `merge_on`: `check.py` e `compare_xsd.py` contra o zip do dia
 (o gov.br pode republicar), merge do branch no `master`, suíte e `validate.php`, push com ok, e
 aviso ao enviaesocial.

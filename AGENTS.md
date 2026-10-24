@@ -22,7 +22,7 @@ O upstream NFePHP é só referência de implementação; nada entra no fork só 
 
 Os pacotes de XSD ficam em `schemes/v_S_01_03_00/`, **um por vez**: aplique perto da data de produção.
 
-Pacotes preparados antes da data ficam em branches `xsd/<data>` (lista e data de merge em
+Pacotes preparados antes da data ficam em branches `feature/xsd-<data>` (lista e data de merge em
 `pending_packages` do `ESOCIAL-VERSION.json`). Catálogo das Mensagens do Sistema:
 `data/mensagens-sistema.json`, lido por `Common\SystemMessages::get($codigo)`.
 

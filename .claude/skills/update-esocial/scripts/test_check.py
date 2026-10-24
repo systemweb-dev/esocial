@@ -66,13 +66,13 @@ class MensagensTest(unittest.TestCase):
 
 class PendentesTest(unittest.TestCase):
     STATE = {'pending_packages': [
-        {'xsd_package': '2026-11-23', 'branch': 'xsd/2026-11-23', 'merge_on': '2026-11-09'},
+        {'xsd_package': '2026-11-23', 'branch': 'feature/xsd-2026-11-23', 'merge_on': '2026-11-09'},
     ]}
 
     def test_pacote_pronto_em_branch(self):
         ready = check.pending_branch(self.STATE, '2026-11-23')
 
-        self.assertEqual(ready, {'xsd_package': '2026-11-23', 'branch': 'xsd/2026-11-23', 'merge_on': '2026-11-09'})
+        self.assertEqual(ready, {'xsd_package': '2026-11-23', 'branch': 'feature/xsd-2026-11-23', 'merge_on': '2026-11-09'})
 
     def test_pacote_sem_branch(self):
         ready = check.pending_branch(self.STATE, '2026-12-14')
