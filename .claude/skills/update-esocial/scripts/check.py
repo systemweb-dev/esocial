@@ -44,7 +44,11 @@ def parse(page: str) -> dict:
             xsd[m.group(1)] = href
     def nt_key(t):
         m = re.search(r'(\d{2})/(\d{4})', t)
-        return (int(m.group(2)), int(m.group(1)), 'rev' in t) if m else (0, 0, False)
+        if not m:
+            return (0, 0, ())
+        r = re.search(r'rev\.?\s*(\d{2})/(\d{2})/(\d{4})', t)
+        rev = (int(r.group(3)), int(r.group(2)), int(r.group(1))) if r else ((0,) if 'rev' in t else ())
+        return (int(m.group(2)), int(m.group(1)), rev)
     nts = sorted({re.sub(r'\s+', ' ', t) for t, _ in items if re.match(r'Nota T[ée]cnica v\. S-1\.3', t)}, key=nt_key)
     comm = sorted({m.group(1) + ('-Alfa' if m.group(2) else '')
                    for t, _ in items

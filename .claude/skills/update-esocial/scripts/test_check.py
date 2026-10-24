@@ -87,3 +87,17 @@ class PendentesTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class NotaTecnicaTest(unittest.TestCase):
+    def test_revisao_mais_recente_e_a_ultima(self):
+        page = (
+            '<a href="nt-07-rev-20-10.pdf">Nota Técnica v. S-1.3 07/2026 rev. 20/10/2026</a>'
+            '<a href="nt-07-rev.pdf">Nota Técnica v. S-1.3 07/2026 rev. 24/09/2026</a>'
+            '<a href="nt-07.pdf">Nota Técnica v. S-1.3 07/2026</a>'
+            '<a href="nt-06-rev.pdf">Nota Técnica v. S-1.3 06/2026 rev. 09/04/2026</a>'
+        )
+
+        found = check.parse(page)
+
+        self.assertEqual(found['nts'][-1], 'Nota Técnica v. S-1.3 07/2026 rev. 20/10/2026')
